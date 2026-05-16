@@ -1044,7 +1044,7 @@ function renderMap() {
   const grid = document.getElementById('chapter-grid');
   grid.innerHTML = '';
   CHAPTERS.forEach((ch, i) => {
-    const prev = i === 0 || getChapterProgress(CHAPTERS[i-1].id).stars > 0;
+    const prev = i < 6 || getChapterProgress(CHAPTERS[i-1].id).stars > 0;
     const prog = getChapterProgress(ch.id);
     const locked = !prev;
     const exCount = ch.steps.filter(s => s.type !== 'slide').length;
