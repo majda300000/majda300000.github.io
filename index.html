@@ -186,7 +186,7 @@
     <div class="header-bar">
       <div>
         <div style="font-size:15px;font-weight:500;color:var(--color-text-primary);" id="user-name-display">Easy Croatian</div>
-        <div style="font-size:12px;color:var(--color-text-tertiary);">Chapters 1–10</div>
+        <div style="font-size:12px;color:var(--color-text-tertiary);">Chapters 1–20</div>
       </div>
       <div style="display:flex;gap:8px;align-items:center;">
         <div class="streak-badge"><span style="font-size:16px;">🔥</span><span id="streak-display">0 day streak</span></div>
@@ -205,10 +205,20 @@
     <div class="chapter-grid" id="chapter-grid"></div>
   </div>
 
+  <!-- UNITS -->
+  <div id="screen-units" class="screen">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:1rem;">
+      <button class="back-btn" onclick="goHome()">← Back</button>
+    </div>
+    <div id="units-ch-header"></div>
+    <div id="units-list"></div>
+    <div id="units-actions" style="margin-top:0.5rem;"></div>
+  </div>
+
   <!-- LESSON -->
   <div id="screen-lesson" class="screen">
     <div class="lesson-header">
-      <button class="back-btn" onclick="goHome()">← Back</button>
+      <button class="back-btn" onclick="backFromLesson()">← Back</button>
       <div style="flex:1;min-width:0;">
         <div class="lesson-title" id="lesson-title-display"></div>
         <div class="lesson-subtitle" id="lesson-subtitle-display"></div>
@@ -238,7 +248,8 @@
         <div class="stat-item"><div class="stat-num" id="stat-streak">0</div><div class="stat-lbl">Day streak</div></div>
       </div>
       <button class="check-btn" onclick="goHome()" style="margin-right:8px;">Back to map</button>
-      <button class="next-btn" id="next-chapter-btn" onclick="nextChapter()">Next chapter →</button>
+      <button class="next-btn" id="next-unit-btn" onclick="nextUnit()" style="display:none;">Next unit →</button>
+      <button class="next-btn" id="next-chapter-btn" onclick="nextChapter()" style="display:none;">Next chapter →</button>
       <div id="complete-checkpoint-wrap" style="margin-top:12px;"></div>
       <div style="margin-top:8px;display:flex;flex-direction:column;gap:6px;">
         <button class="ghost-btn" onclick="showChapterSummary(state.currentChapter && state.currentChapter.id)" style="width:100%;padding:8px;">📚 Chapter grammar &amp; vocabulary notes</button>
@@ -323,6 +334,18 @@ const CHAPTERS = [
       { type:"mc", question:"Which statement about Croatian spelling is TRUE?", options:["Every letter is always pronounced the same","Some letters are silent","Vowels sound different in different words","Stress is marked with written accents"], correct:0, explanation:"Croatian is completely phonetic — every letter always sounds the same, no exceptions. This makes it much easier to read than English!" },
       { type:"match", question:"Match each Croatian letter to its pronunciation", pairs:[["č","ch in child"],["š","sh in ship"],["ž","s in pleasure"],["j","y in you"]] },
       { type:"match", question:"Match these Croatian words to their meanings", pairs:[["šah","chess"],["čaj","tea"],["ljubav","love"],["žena","woman"]] },
+      { type:"mc", question:"Which Croatian word contains the 'sh' sound (like in 'ship')?", options:["šah","čaj","ljubav","pivo"], correct:0, explanation:"'š' = 'sh' in ship. šah (chess) starts with š. čaj uses č (ch-sound); pivo has no special letters." },
+      { type:"mc", question:"How is 'čaj' (tea) best described phonetically?", options:["Rhymes with English 'chai'","Sounds like 'tsai'","Sounds like 'shai'","Sounds like 'jai'"], correct:0, explanation:"č = ch as in child. 'čaj' sounds exactly like the English word 'chai'." },
+      { type:"fill", question:"The Croatian word for 'love' is _____.", answer:"ljubav", explanation:"ljubav = love. Starts with 'lj' — that smooth sound like 'll' in million." },
+      { type:"mc", question:"Why can you always read Croatian correctly after learning the alphabet?", options:["Every letter always makes exactly one sound","Croatian has no silent letters","Croatian words are short","Stress is always on the first syllable"], correct:0, explanation:"Croatian is fully phonetic — every letter always makes the same sound, no exceptions." },
+      { type:"mc", question:"'pivo' (beer) — how many syllables?", options:["2 (pi-vo)","1","3","4"], correct:0, explanation:"pi-vo = 2 syllables. Count the vowels: i and o → 2 syllables." },
+      { type:"mc", question:"Which letter sounds like the 's' in 'pleasure' or French 'g' in 'genre'?", options:["ž","š","ć","č"], correct:0, explanation:"ž is voiced: like the 's' in pleasure. š is its unvoiced partner: like 'sh' in ship." },
+      { type:"mc", question:"What is the key difference between 'č' and 'ć'?", options:["Same ch-sound, but tongue is higher for ć","č is hard, ć is totally different","ć is silent","They are identical in speech"], correct:0, explanation:"Both are 'ch' sounds, but ć is produced with the tongue pressed higher — it is slightly softer." },
+      { type:"match", question:"Match each sound description to the Croatian letter", pairs:[["y as in 'yes'","j"],["sh as in 'ship'","š"],["ch as in 'child'","č"],["s as in 'pleasure'","ž"]] },
+      { type:"mc", question:"How is 'c' in Croatian always pronounced?", options:["Like 'tz' in tzar","Like 'k' in king","Like 's' in sun","Like 'ch' in child"], correct:0, explanation:"'c' is always 'tz' — like in 'tzar' or Italian 'pizza'. Never K or S." },
+      { type:"fill", question:"žena means _____ in English.", answer:"woman", explanation:"žena = woman. ž sounds like the 's' in pleasure." },
+      { type:"mc", question:"'lj' and 'nj' in Croatian are each counted as:", options:["A single letter","Two separate letters","Optional combinations","Only used in borrowed words"], correct:0, explanation:"Both 'lj' and 'nj' are treated as single letters in the Croatian alphabet — each makes one indivisible sound." },
+      { type:"mc", question:"'Prijatelj' (friend) — how many Croatian letters does it have? [hint: lj = 1 letter]", options:["8","9","7","10"], correct:0, explanation:"p-r-i-j-a-t-e-lj = 8 Croatian letters. 'lj' counts as one!" },
     ]
   },
   {
@@ -365,6 +388,21 @@ const CHAPTERS = [
       { type:"mc", question:"How do you say 'We are eating'?", options:["Jedemo","Jede","Jedem","Jesti"], correct:0, explanation:"jesti → jede → jedem → jedemo (add -mo to jedem)." },
       { type:"match", question:"Match Croatian verbs to English meanings", pairs:[["čitati","to read"],["plivati","to swim"],["pjevati","to sing"],["spavati","to sleep"]] },
       { type:"match", question:"Match infinitive to its irregular 3rd person form", pairs:[["jesti","jede"],["pisati","piše"],["piti","pije"],["plesati","pleše"]] },
+      { type:"slide", title:"Full present tense: all persons",
+        content:`<p>You know 3rd person (čita), 1st person (čitam) and we (čitamo). Here's the full picture:</p>
+<table class="vocab-table"><tr><th>Person</th><th>Ending</th><th>čitati</th><th>piti</th></tr><tr><td>ja</td><td>-m</td><td>čitam</td><td>pijem</td></tr><tr><td>ti</td><td>-š</td><td>čitaš</td><td>piješ</td></tr><tr><td>on/ona</td><td>—</td><td>čita</td><td>pije</td></tr><tr><td>mi</td><td>-mo</td><td>čitamo</td><td>pijemo</td></tr><tr><td>vi</td><td>-te</td><td>čitate</td><td>pijete</td></tr><tr><td>oni</td><td>-ju/-u</td><td>čitaju</td><td>piju</td></tr></table>
+<p style="margin-top:0.75rem;">The <span class="hl">ti form (-š)</span> is used with friends: <em>Što čitaš?</em> = What are you reading?</p>` },
+      { type:"mc", question:"How do you say 'You (sg.) are reading'?", options:["čitaš","čitam","čitate","čitaju"], correct:0, explanation:"ti form: add -š to the stem. čita + š = čitaš." },
+      { type:"fill", question:"_____ kuhaš? (What are you cooking?)", answer:"Što", explanation:"Što = what. Što kuhaš? = What are you cooking?" },
+      { type:"mc", question:"How do you say 'They are swimming'?", options:["plivaju","plivate","plivamo","plivam"], correct:0, explanation:"oni form: add -ju. pliva + ju = plivaju." },
+      { type:"fill", question:"Ana i Goran _____. (Ana and Goran are sleeping.)", answer:"spavaju", explanation:"Ana i Goran = they → 3rd person plural: spava + ju = spavaju." },
+      { type:"mc", question:"How do you say 'You (pl.) are writing'?", options:["pišete","pišeš","pišemo","pišu"], correct:0, explanation:"vi form: piše + te = pišete." },
+      { type:"fill", question:"Što Ana _____? (What is Ana doing?)", answer:"radi", explanation:"Ana = 3rd person singular. raditi → radi." },
+      { type:"mc", question:"'Oni jedu' means:", options:["They are eating","We are eating","You are eating","They ate"], correct:0, explanation:"oni = they. jesti → jede → jedu (3rd plural). They are eating." },
+      { type:"mc", question:"'Goran još uvijek pleše' means:", options:["Goran is still dancing","Goran is already dancing","Goran never dances","Goran dances sometimes"], correct:0, explanation:"još uvijek = still (with emphasis). Goran is still dancing." },
+      { type:"fill", question:"Marko _____ i Ana _____. (Marko is cooking and Ana is reading.)", answer:"kuha, čita", explanation:"Both 3rd person singular: kuha (he cooks), čita (she reads)." },
+      { type:"mc", question:"'Pijete li kavu?' means:", options:["Are you (pl.) drinking coffee?","Do they drink coffee?","Are we drinking coffee?","Did you drink coffee?"], correct:0, explanation:"pijete = you (pl/formal) drink. li turns it into a yes/no question." },
+      { type:"match", question:"Match each verb form to its subject", pairs:[["kuham","ja (I)"],["kuhaš","ti (you sg)"],["kuhamo","mi (we)"],["kuhaju","oni (they)"]] },
     ]
   },
   {
@@ -394,6 +432,16 @@ const CHAPTERS = [
       { type:"mc", question:"'Ana čeka _____ .' (Ana is waiting for Ivana.)", options:["Ivanu","Ivana","Ivani","Ivane"], correct:0, explanation:"Ivana is a name ending in -a → Ivanu in accusative." },
       { type:"match", question:"Match nominative (dictionary) form to accusative (object) form", pairs:[["knjiga","knjigu"],["kava","kavu"],["sestra","sestru"],["voda","vodu"]] },
       { type:"mc", question:"'Ivan čeka baku.' What is 'baku' the accusative of?", options:["baka (grandmother)","bake","baki","bakam"], correct:0, explanation:"baka (grandmother) → baku in accusative. Ivan čeka baku = Ivan is waiting for his grandmother." },
+      { type:"fill", question:"Trebam _____. (I need a sister.) [sestra]", answer:"sestru", explanation:"sestra ends in -a → sestru in accusative." },
+      { type:"mc", question:"How do you say 'Goran is looking for water'?", options:["Goran traži vodu.","Goran traži voda.","Goran voda traži.","Goran je vodu."], correct:0, explanation:"tražiti (to look for) takes accusative. voda → vodu (-a → -u)." },
+      { type:"fill", question:"Ivan čeka _____. (Ivan is waiting for his grandmother.) [baka]", answer:"baku", explanation:"baka ends in -a → baku." },
+      { type:"mc", question:"'Goran sluša Anu' means:", options:["Goran is listening to Ana","Ana is listening to Goran","Goran is looking for Ana","Ana hears Goran"], correct:0, explanation:"sluša = is listening to. Anu = Ana in accusative (→ -u)." },
+      { type:"fill", question:"Gledam _____. (I'm watching a film.) [film]", answer:"film", explanation:"film is inanimate (consonant ending) → no change in accusative." },
+      { type:"mc", question:"'Kuhamo juhu' means:", options:["We are cooking soup","I am cooking soup","They cook soup","We need soup"], correct:0, explanation:"kuhamo = we are cooking. juhu = juha in accusative (-a → -u)." },
+      { type:"fill", question:"Ivan traži _____. (Ivan is looking for Ivana.)", answer:"Ivanu", explanation:"Ivana ends in -a → Ivanu in accusative. Names follow the same rule." },
+      { type:"mc", question:"'Imam sestru i brata.' means:", options:["I have a sister and a brother","I have sisters and brothers","I need a sister and a brother","I am looking for them"], correct:0, explanation:"sestru = sestra accusative. brata = brat accusative (animate → +a)." },
+      { type:"mc", question:"'Ana čita pjesmu.' means:", options:["Ana is reading a song/poem","Ana is singing a song","Ana is listening to a song","Ana wrote a poem"], correct:0, explanation:"pjesma → pjesmu (-a → -u). čitati = to read. Ana is reading a poem/song." },
+      { type:"match", question:"Match the verb to a natural object it takes", pairs:[["slušam","pjesmu (song)"],["čekam","Anu (Ana)"],["trebam","vodu (water)"],["gledam","film (film)"]] },
     ]
   },
   {
@@ -425,6 +473,17 @@ const CHAPTERS = [
       { type:"mc", question:"How do you say 'Ana rarely reads'?", options:["Ana rijetko čita","Ana nikad čita","Ana ponekad čita","Ana ne čita"], correct:0, explanation:"'rijetko' = rarely. Ana rijetko čita = Ana rarely reads." },
       { type:"fill", question:"Goran _____ ne pije kavu. (Goran never drinks coffee.)", answer:"nikad", hint:"nikad = never. Always use with negation: nikad ne." },
       { type:"match", question:"Match Croatian adverbs to their English meanings", pairs:[["možda","maybe"],["uvijek","always"],["rijetko","rarely"],["sigurno","for sure"]] },
+      { type:"fill", question:"Ana _____ ne piše. (Ana isn't writing yet.)", answer:"još", explanation:"još + ne = not yet. Ana još ne piše = Ana isn't writing yet." },
+      { type:"mc", question:"How do you say 'Goran probably cooks'?", options:["Goran vjerojatno kuha.","Goran sigurno kuha.","Goran ponekad kuha.","Goran rijetko kuha."], correct:0, explanation:"vjerojatno = probably. Goran vjerojatno kuha." },
+      { type:"fill", question:"Nikad ne _____. (I never swim.) [plivati → plivam]", answer:"plivam", explanation:"nikad ne plivam = I never swim. plivam = I swim (1st person)." },
+      { type:"mc", question:"'Goran više ne čita' means:", options:["Goran doesn't read anymore","Goran still doesn't read","Goran never reads","Goran sometimes reads"], correct:0, explanation:"više + negation = not anymore. Goran više ne čita = Goran doesn't read anymore." },
+      { type:"mc", question:"How do you say 'I definitely don't have water'?", options:["Sigurno nemam vodu.","Nikad nemam vodu.","Možda nemam vodu.","Ne trebam vodu."], correct:0, explanation:"sigurno = certainly. nemam = I don't have. Sigurno nemam vodu." },
+      { type:"fill", question:"Ana _____ čita knjige. (Ana often reads books.)", answer:"često", explanation:"često = often. Ana često čita knjige." },
+      { type:"mc", question:"Which sentence uses double negation correctly?", options:["Nikad ne spavam.","Nikad spavam.","Ne nikad spavam.","Spavam nikad."], correct:0, explanation:"Croatian requires double negation: nikad + ne before the verb." },
+      { type:"mc", question:"'Možda spava' means:", options:["Maybe he/she is sleeping","He/she is definitely sleeping","He/she never sleeps","He/she usually sleeps"], correct:0, explanation:"možda = maybe. No subject needed (pro-drop). Maybe he/she is sleeping." },
+      { type:"match", question:"Match each sentence to how certain it sounds", pairs:[["Sigurno piše.","for sure"],["Vjerojatno piše.","probably"],["Možda piše.","maybe"],["Nikad ne piše.","never"]] },
+      { type:"fill", question:"Goran _____ ne pije kavu. (Goran never drinks coffee.)", answer:"nikad", explanation:"nikad = never. Always with negation: nikad ne." },
+      { type:"mc", question:"'Ana rijetko pleše.' means:", options:["Ana rarely dances","Ana never dances","Ana often dances","Ana always dances"], correct:0, explanation:"rijetko = rarely. Ana rijetko pleše = Ana rarely dances." },
     ]
   },
   {
@@ -451,6 +510,16 @@ const CHAPTERS = [
       { type:"mc", question:"'Trebam _____ .' (I need a ticket.) [karta = ticket, feminine]", options:["kartu","karta","karti","karte"], correct:0, explanation:"karta ends in -a → kartu in accusative." },
       { type:"match", question:"Match each noun to its correct accusative form", pairs:[["film (movie)","film"],["brat (brother)","brata"],["knjiga (book)","knjigu"],["pivo (beer)","pivo"]] },
       { type:"mc", question:"'Imam sestru' means:", options:["I have a sister","I have a brother","I need a sister","I see a sister"], correct:0, explanation:"imam = I have, sestru = sestra (sister) in accusative (-a → -u)." },
+      { type:"fill", question:"Čekam _____. (I'm waiting for a horse.) [konj]", answer:"konja", explanation:"konj (horse) is animate → add -a: konja." },
+      { type:"mc", question:"'Ivan pije _____.' (Ivan is drinking wine.) [vino = neuter]", options:["vino","vinu","vina","vinom"], correct:0, explanation:"vino is neuter (-o) → no change in accusative." },
+      { type:"fill", question:"Ana vidi _____. (Ana sees a cat.) [mačak]", answer:"mačka", explanation:"mačak (cat) is animate, the -a- drops: mačak → mačka." },
+      { type:"mc", question:"'Goran ima _____.' (Goran has a brother.) [brat]", options:["brata","brat","bratu","bratem"], correct:0, explanation:"brat is animate → brata. Goran ima brata." },
+      { type:"fill", question:"Trebam _____. (I need a ticket.) [karta]", answer:"kartu", explanation:"karta ends in -a → kartu." },
+      { type:"mc", question:"'Koga tražiš?' — the word 'koga' signals:", options:["You're asking about a person or animal","You're asking about a thing","It's a locative question","It's about time"], correct:0, explanation:"Koga = who (accusative). Used when the expected answer is a person or animal." },
+      { type:"fill", question:"Ana gleda _____. (Ana is watching Goran.)", answer:"Gorana", explanation:"Goran is animate masc. → Gorana." },
+      { type:"mc", question:"Which nouns DON'T change in accusative?", options:["Inanimate things (consonant) + neuter nouns","Feminine nouns ending in -a","People and animals (consonant)","All masculine nouns"], correct:0, explanation:"Inanimate consonant nouns and neuter (-o/-e) nouns don't change. Only -a nouns and animate consonant nouns change." },
+      { type:"mc", question:"'Čekam vlak.' What is 'vlak' (train) here?", options:["Accusative object — unchanged (inanimate)","Locative","Dative","Nominative subject"], correct:0, explanation:"vlak is inanimate → no change in accusative. Čekam vlak = I'm waiting for the train." },
+      { type:"match", question:"Choose the correct accusative for each noun", pairs:[["pivo (beer, neut)","pivo"],["sestra (sister, fem)","sestru"],["Goran (person, animate)","Gorana"],["film (film, inanimate)","film"]] },
     ]
   },
   {
@@ -480,6 +549,16 @@ const CHAPTERS = [
       { type:"mc", question:"Which destination uses 'na'?", options:["Going to an island","Going to Zagreb","Going to the cinema","Going to the hospital"], correct:0, explanation:"Islands always use 'na'. Cities and enclosed places/buildings use 'u'." },
       { type:"match", question:"Match each destination to the correct preposition", pairs:[["Zagreb (city)","u Zagreb"],["plaža (beach)","na plažu"],["kava (coffee outing)","na kavu"],["bolnica (hospital)","u bolnicu"]] },
       { type:"mc", question:"'Ana putuje na Hvar.' What kind of place is Hvar?", options:["An island","A city","A building","A country"], correct:0, explanation:"Hvar is a Croatian island — islands always use 'na'." },
+      { type:"fill", question:"Idem _____ Split. (I'm going to Split.)", answer:"u", explanation:"Split is a city → u. Idem u Split." },
+      { type:"mc", question:"How do you say 'We are going to the cinema'?", options:["Idemo u kino.","Idemo na kino.","Idemo kino.","Idemo do kina."], correct:0, explanation:"kino is an enclosed venue → u. Idemo u kino." },
+      { type:"fill", question:"Putujemo _____ Italiju. (We're travelling to Italy.)", answer:"u", explanation:"Countries use u. Italija → Italiju (fem. acc.). u Italiju." },
+      { type:"mc", question:"'Gdje je Ana?' — what kind of answer does this question expect?", options:["A location (where she is now)","A destination (where she is going)","A time","A reason"], correct:0, explanation:"gdje = where (static location). kamo = where to (destination)." },
+      { type:"mc", question:"'Idem na more.' means:", options:["I'm going to the sea/coast","I'm swimming in the sea","I'm at the sea","I'm leaving the sea"], correct:0, explanation:"na more = to the sea (na + accusative, more doesn't change). Going to the coast." },
+      { type:"fill", question:"Goran dolazi _____ Zagreb. (Goran is coming to Zagreb.)", answer:"u", explanation:"Coming to a city: u + city. Goran dolazi u Zagreb." },
+      { type:"mc", question:"Ana odlazi _____ Dubrovnik. Which preposition?", options:["u","na","za","do"], correct:0, explanation:"Dubrovnik is a city → u. Ana odlazi u Dubrovnik." },
+      { type:"mc", question:"How do you say 'I'm going to the island of Vis'?", options:["Idem na Vis.","Idem u Vis.","Idem za Vis.","Idem do Visa."], correct:0, explanation:"Islands always use na. Idem na Vis." },
+      { type:"match", question:"Match the destination type to the correct preposition", pairs:[["city (Zagreb)","u"],["island (Krk)","na"],["outing (kava)","na"],["building (bolnica)","u"]] },
+      { type:"mc", question:"'Kamo Ana ide?' — 'kamo' tells us:", options:["We're asking where she's going","We're asking where she is now","We're asking when she's going","We're asking who she's with"], correct:0, explanation:"kamo = where to (direction/destination). Used when asking about movement." },
     ]
   },
   {
@@ -510,6 +589,15 @@ const CHAPTERS = [
       { type:"mc", question:"How do you say 'Goran plays basketball'?", options:["Goran igra košarku","Goran igra košarka","Goran se igra košarku","Goran igra na košarku"], correct:0, explanation:"košarka → košarku (-a → -u in accusative). Goran igra košarku." },
       { type:"match", question:"Match to the correct meaning", pairs:[["Ana se pere","Ana washes herself"],["Ana pere majicu","Ana washes a shirt"],["Zovem se Goran","My name is Goran"],["Ana se zabavlja","Ana is having fun"]] },
       { type:"mc", question:"'Kako se zoveš?' — which response is correct?", options:["Zovem se Ana.","Ja Ana.","Se zovem Ana.","Moje se Ana."], correct:0, explanation:"The standard reply: Zovem se [name]. 'se' goes to 2nd position after the verb." },
+      { type:"mc", question:"'Ana se tušira.' means:", options:["Ana is showering","Ana is washing something","Ana is dressing herself","Ana is cleaning"], correct:0, explanation:"tuširati se = to shower (reflexive). se goes to 2nd position." },
+      { type:"fill", question:"Kako _____ zoveš? (What is your name?)", answer:"se", explanation:"se goes to 2nd position. Kako se zoveš? = What are you called?" },
+      { type:"mc", question:"'Vrata se zatvaraju.' means:", options:["The doors are closing","I'm closing the doors","The doors are open","We close the doors"], correct:0, explanation:"se + 3rd person = it happens by itself. The doors are closing (by themselves)." },
+      { type:"mc", question:"How do you say 'I play football'?", options:["Igram nogomet.","Igram se nogomet.","Igram na nogomet.","Se igram nogomet."], correct:0, explanation:"igrati + sport (no se): Igram nogomet. 'se' is only for 'playing in general'." },
+      { type:"fill", question:"Ana se _____. (Ana is laughing.)", answer:"smije", explanation:"smijati se = to laugh. Ana se smije. se goes to 2nd position." },
+      { type:"mc", question:"'Ana se boji' means:", options:["Ana is afraid","Ana is laughing","Ana is having fun","Ana is playing"], correct:0, explanation:"bojati se = to be afraid. Ana se boji = Ana is afraid." },
+      { type:"mc", question:"'Ana oblači dijete.' means:", options:["Ana is dressing the child","Ana is washing the child","The child is dressing Ana","Ana is washing herself"], correct:0, explanation:"Without se: to dress someone else. oblači dijete = dresses the child." },
+      { type:"mc", question:"How do you say 'I play tennis every day'?", options:["Igram tenis svaki dan.","Igram se tenis svaki dan.","Svaki dan se igram tenis.","Tenisujem svaki dan."], correct:0, explanation:"tenis is a sport (no se): igram tenis. svaki dan goes anywhere." },
+      { type:"match", question:"Match to whether the action is reflexive or not", pairs:[["Ana se pere","washing herself"],["Ana pere majicu","washing a shirt"],["Goran se zabavlja","having fun"],["Goran kuha juhu","cooking soup"]] },
     ]
   },
   {
@@ -541,6 +629,16 @@ const CHAPTERS = [
       { type:"mc", question:"How do you say 'I am tired'?", options:["Umoran sam","Sam umoran","Jesam umoran","Umoran je"], correct:0, explanation:"'sam' = I am (from biti). The adjective comes first, then 'sam' in 2nd position: Umoran sam." },
       { type:"match", question:"Match Croatian weather expressions to English", pairs:[["Pada kiša","It's raining"],["Vedro je","The sky is clear"],["Sunčano je","It's sunny"],["Puše vjetar","The wind is blowing"]] },
       { type:"mc", question:"'Uopće nije hladno' means:", options:["It's not cold at all","It's a bit cold","It's not very cold","It's never cold"], correct:0, explanation:"'uopće' + negation = not at all. Uopće nije hladno = It's not cold at all." },
+      { type:"fill", question:"Mi _____ studenti. (We are students.)", answer:"smo", explanation:"smo = we are (biti). Mi smo studenti." },
+      { type:"mc", question:"'Sunčano je i toplo' means:", options:["It's sunny and warm","It's cloudy and cold","It's sunny but cold","It's warm but rainy"], correct:0, explanation:"sunčano = sunny, toplo = warm, i = and." },
+      { type:"fill", question:"Kakvo _____ vrijeme danas? (What's the weather like today?)", answer:"je", explanation:"je goes to 2nd position. Kakvo je vrijeme? = What is the weather?" },
+      { type:"mc", question:"How do you say 'It's snowing today'?", options:["Danas pada snijeg.","Danas je snijeg.","Snijeg je danas.","Je snijeg danas."], correct:0, explanation:"Pada snijeg = It's snowing (snow falls). danas first is natural." },
+      { type:"mc", question:"'Oni su sportaši.' means:", options:["They are athletes","They are tired","They are here","They are sleeping"], correct:0, explanation:"su = they are (biti, 3rd pl.). sportaši = athletes." },
+      { type:"fill", question:"Ana _____ bolesna. (Ana is not sick.)", answer:"nije", explanation:"nije = is not (negation of je). Ana nije bolesna." },
+      { type:"mc", question:"How do you say 'It's a bit cloudy'?", options:["Malo je oblačno.","Jako je oblačno.","Potpuno je oblačno.","Nije oblačno."], correct:0, explanation:"malo = a little. Malo je oblačno. je stays in 2nd position." },
+      { type:"mc", question:"'Umoran sam' — the speaker is:", options:["A tired male","A tired female","Happy","Confused"], correct:0, explanation:"umoran is the masculine adjective form. A female says: Umorna sam." },
+      { type:"match", question:"Match each biti form to its subject", pairs:[["sam","ja (I)"],["si","ti (you sg)"],["smo","mi (we)"],["su","oni (they)"]] },
+      { type:"fill", question:"Goran _____ umoran. (Goran is tired.)", answer:"je", explanation:"je = he/she/it is (3rd sg. biti). Goran je umoran." },
     ]
   },
   {
@@ -570,6 +668,17 @@ const CHAPTERS = [
       { type:"fill", question:"Skoro je _____. (It's almost midnight.)", answer:"ponoć", hint:"ponoć = midnight. Skoro = almost." },
       { type:"match", question:"Match numbers to Croatian words", pairs:[["3","tri"],["7","sedam"],["9","devet"],["5","pet"]] },
       { type:"match", question:"Match the days of the week", pairs:[["Monday","ponedjeljak"],["Friday","petak"],["Wednesday","srijeda"],["Sunday","nedjelja"]] },
+      { type:"mc", question:"What is 'petnaest'?", options:["15","12","16","50"], correct:0, explanation:"petnaest = 15. pet (5) + naest." },
+      { type:"fill", question:"How do you say '18'?", answer:"osamnaest", explanation:"osam (8) + naest = osamnaest = 18." },
+      { type:"mc", question:"'U četiri i pol' means:", options:["At half past four","At quarter past four","At four fifteen","At four forty"], correct:0, explanation:"pol = half (past). u četiri i pol = at half past four." },
+      { type:"fill", question:"How do you say 'At exactly 9 o'clock'?", answer:"Točno u devet", explanation:"točno = exactly. u devet = at nine. Točno u devet." },
+      { type:"mc", question:"'Dolazim u utorak' means:", options:["I'm coming on Tuesday","I'm coming on Thursday","I'm coming on Monday","I come on weekdays"], correct:0, explanation:"utorak = Tuesday. dolazim = I'm coming. u utorak = on Tuesday." },
+      { type:"fill", question:"Idem u kino u _____. (I'm going to the cinema on Friday.)", answer:"petak", explanation:"petak = Friday. u petak = on Friday." },
+      { type:"mc", question:"'Šest plus četiri je _____ .'", options:["deset","jedanaest","devet","osam"], correct:0, explanation:"6 + 4 = 10 = deset." },
+      { type:"mc", question:"Which day comes after 'srijeda' (Wednesday)?", options:["četvrtak","utorak","petak","subota"], correct:0, explanation:"srijeda(Wed) → četvrtak(Thu) → petak(Fri) → subota(Sat) → nedjelja(Sun)." },
+      { type:"match", question:"Match the time expression to its meaning", pairs:[["u tri","at 3 o'clock"],["u tri i pol","at half past 3"],["točno u pet","at exactly 5"],["u tri i dvadeset","at 3:20"]] },
+      { type:"fill", question:"Koliko je _____? (What time is it?)", answer:"sati", explanation:"Koliko je sati? = What time is it? (literally: how many hours?)" },
+      { type:"mc", question:"'Trening počinje u sedam i dvadeset.' means:", options:["Training starts at 7:20","Training starts at 7","Training ends at 7:20","Training is on the 7th"], correct:0, explanation:"u sedam i dvadeset = at 7:20. počinje = starts." },
     ]
   },
   {
@@ -599,7 +708,16 @@ const CHAPTERS = [
       { type:"mc", question:"'Noć je duga' means:", options:["The night is long","The night is short","It's a long day","The night is dark"], correct:0, explanation:"noć (night) is feminine (exception — ends in consonant but is feminine). duga is the feminine form of dug (long)." },
       { type:"mc", question:"What is the neuter form of 'nov' (new)?", options:["novo","nova","novi","nove"], correct:0, explanation:"Neuter adjectives end in -o: novo. (masc: nov, fem: nova, neut: novo)" },
       { type:"match", question:"Match nouns to their gender", pairs:[["knjiga","feminine"],["pivo","neuter"],["vlak","masculine"],["plaža","feminine"]] },
-      { type:"match", question:"Match each adjective form to the correct sentence", pairs:[["velik (masc)","Stol je velik."],["velika (fem)","Riba je velika."],["veliko (neut)","Jezero je veliko."],["nova (fem)","Ana je nova."]]}
+      { type:"match", question:"Match each adjective form to the correct sentence", pairs:[["velik (masc)","Stol je velik."],["velika (fem)","Riba je velika."],["veliko (neut)","Jezero je veliko."],["nova (fem)","Ana je nova."]]},
+      { type:"fill", question:"Stol je _____. (The table is big.) [velik]", answer:"velik", explanation:"stol is masculine (consonant) → no adjective ending: velik." },
+      { type:"mc", question:"What gender is 'kuhinja' (kitchen)?", options:["Feminine (ends in -a)","Masculine","Neuter","Unknown"], correct:0, explanation:"kuhinja ends in -a → feminine. Like most -a nouns." },
+      { type:"mc", question:"'More je duboko.' means:", options:["The sea is deep","The sea is big","The sea is blue","The sea is beautiful"], correct:0, explanation:"duboko = deep (neuter form, matches more = neuter). More je duboko." },
+      { type:"mc", question:"What is the feminine form of 'star' (old)?", options:["stara","staro","stari","stare"], correct:0, explanation:"star (masc.) → stara (fem.) → staro (neut.). stara kuća = old house." },
+      { type:"fill", question:"Knjiga je _____. (The book is new.) [nov]", answer:"nova", explanation:"knjiga is feminine → nova (feminine form of nov)." },
+      { type:"mc", question:"'Imam lijepu kuću' — why 'lijepu'?", options:["kuća is feminine in accusative → lijepu","kuća is neuter","the verb requires -u","lijepa never changes"], correct:0, explanation:"kuća is feminine → kuću in accusative. Adjective feminine accusative: lijep → lijepu." },
+      { type:"fill", question:"Vlak je _____. (The train is old.) [star]", answer:"star", explanation:"vlak is masculine → star (no ending)." },
+      { type:"mc", question:"What is the neuter form of 'nov' (new)?", options:["novo","nova","novi","nove"], correct:0, explanation:"Neuter adjectives end in -o: novo. (masc: nov, fem: nova, neut: novo)" },
+      { type:"match", question:"Match nouns to their gender", pairs:[["knjiga","feminine"],["pivo","neuter"],["vlak","masculine"],["plaža","feminine"]] },
     ]
   },
   {
@@ -638,6 +756,16 @@ const CHAPTERS = [
       { type:"mc", question:"'Ana vozi sporo' — sporo is used as:", options:["an adverb (how she drives)","an adjective (what she drives)","a colour","a noun"], correct:0, explanation:"sporo = slowly (adverb modifying the verb). As an adjective: Ana je spora (Ana is slow)." },
       { type:"match", question:"Match sentences to English meanings", pairs:[["Nebo je plavo.","The sky is blue."],["Noć je crna.","The night is black."],["Oko je smeđe.","The eye is brown."],["Trava je zelena.","The grass is green."]] },
       { type:"fill", question:"Kava je previše _____. (The coffee is too hot.) [vruć]", answer:"vruća", explanation:"kava is feminine → vruć + a = vruća. previše = too much." },
+      { type:"fill", question:"Mačak je _____. (The cat is black.) [crn]", answer:"crn", explanation:"mačak is masculine → no ending: crn." },
+      { type:"mc", question:"'Imam crvenu haljinu.' [haljina = dress] means:", options:["I have a red dress","I have a red car","I see a red dress","I want a red dress"], correct:0, explanation:"crvenu = crven (red) in fem. accusative. haljina → haljinu. I have a red dress." },
+      { type:"fill", question:"Auto je _____. (The car is white.) [bijel]", answer:"bijel", explanation:"auto is masculine → bijel (no ending)." },
+      { type:"mc", question:"'Tamnozelena trava' means:", options:["Dark green grass","Light green grass","Very green grass","Bright green grass"], correct:0, explanation:"tamno- = dark. trava is feminine → tamnozelena." },
+      { type:"fill", question:"More je _____. (The sea is blue.) [plav]", answer:"plavo", explanation:"more is neuter → plav + o = plavo." },
+      { type:"mc", question:"'Nebo je svjetloplavo.' means:", options:["The sky is light blue","The sky is dark blue","The sky is pale","The sky is clear"], correct:0, explanation:"svjetlo- = light/pale. plavo = blue (neut.). Nebo je svjetloplavo." },
+      { type:"fill", question:"Jabuka je _____ kao krv. (The apple is red as blood.) [crven, krv = blood]", answer:"crvena", explanation:"jabuka is feminine → crvena. kao = like/as (never changes)." },
+      { type:"mc", question:"'Vlak je potpuno crn.' means:", options:["The train is completely black","The train is very black","The train is a bit black","The train is dark grey"], correct:0, explanation:"potpuno = completely. crn = black (masc.)." },
+      { type:"match", question:"Match item to its most common colour", pairs:[["trava (grass)","zelena"],["nebo (sky)","plavo"],["snijeg (snow)","bijel"],["jabuka (apple)","crvena"]] },
+      { type:"fill", question:"Pivo je _____. (The beer is yellow.) [žut]", answer:"žuto", explanation:"pivo is neuter → žut + o = žuto." },
     ]
   },
   {
@@ -678,6 +806,15 @@ const CHAPTERS = [
       { type:"fill", question:"_____ noć! (Good night!)", answer:"Laku", explanation:"Laku noć = Good night (literally: light/easy night). Always said exactly this way." },
       { type:"mc", question:"'Drago mi je' means:", options:["Nice to meet you","How are you?","Goodbye","I'm fine"], correct:0, explanation:"Drago mi je = Pleased to meet you (literally: it is dear to me)." },
       { type:"match", question:"Match each phrase to its English meaning", pairs:[["Vidimo se.","See you."],["Hvala puno.","Thank you very much."],["Do viđenja.","Goodbye (formal)."],["Drago mi je.","Nice to meet you."]] },
+      { type:"mc", question:"How do you greet someone at 2pm?", options:["Dobar dan!","Dobro jutro!","Dobra večer!","Laku noć!"], correct:0, explanation:"Dobar dan = Good afternoon/day. dan is masculine → dobar." },
+      { type:"fill", question:"Kako _____ ? (How are you? — to a professor)", answer:"ste", explanation:"Kako ste? = formal/plural 'How are you?'. For friends: Kako si?" },
+      { type:"mc", question:"Someone says 'Hvala!' You respond:", options:["Nema na čemu.","Do viđenja.","Vidimo se.","Kako si?"], correct:0, explanation:"Nema na čemu = You're welcome (literally: there's nothing to it)." },
+      { type:"fill", question:"Dobro _____! (Welcome! — to a female friend arriving)", answer:"došla", explanation:"Dobro došla = Welcome (to a female). došao = male, došli = group." },
+      { type:"mc", question:"'Nije loše, hvala. A ti?' — 'A ti?' means:", options:["And you?","But why?","Or not?","And then?"], correct:0, explanation:"A = and/but (here: and). ti = you. A ti? = And you? — a natural conversational follow-up." },
+      { type:"mc", question:"You want to say goodbye on the phone. You say:", options:["Čujemo se!","Vidimo se!","Do viđenja.","Laku noć."], correct:0, explanation:"Čujemo se = Talk soon / We'll hear from each other. Specifically for phone goodbyes." },
+      { type:"fill", question:"Drago _____ je. (Nice to meet you.)", answer:"mi", explanation:"Drago mi je = Nice to meet you (lit: it is dear to me). mi is in 2nd position." },
+      { type:"mc", question:"'Bolesna sam' — the speaker is:", options:["A sick female","A sick male","A tired female","A tired male"], correct:0, explanation:"bolesna is the feminine form. A male says: Bolestan sam." },
+      { type:"match", question:"Match each phrase to the situation where you'd use it", pairs:[["Čujemo se.","ending a phone call"],["Drago mi je.","meeting someone new"],["Laku noć.","going to bed"],["Dobro došli.","welcoming a group"]] },
     ]
   },
   {
@@ -714,6 +851,15 @@ const CHAPTERS = [
       { type:"fill", question:"Prijatelj _____ traži. (A friend is looking for me.)", answer:"me", explanation:"me = accusative of ja. 2nd position after 'Prijatelj'." },
       { type:"mc", question:"How do you say 'She loves him'?", options:["Ona ga voli.","Ona je voli.","Ona me voli.","Ona ih voli."], correct:0, explanation:"ga = accusative of on (him). Ona ga voli = She loves him." },
       { type:"match", question:"Match each sentence to its English translation", pairs:[["Volim te.","I love you."],["Vidim ga.","I see him."],["Ana me čeka.","Ana is waiting for me."],["Čekam ih.","I'm waiting for them."]] },
+      { type:"fill", question:"Ivan _____ voli. (Ivan loves her.)", answer:"je", explanation:"je = accusative of ona (her). Ivan je voli = Ivan loves her." },
+      { type:"mc", question:"'Čekaju nas.' means:", options:["They are waiting for us","We are waiting for them","He is waiting for us","They wait for you"], correct:0, explanation:"nas = accusative of mi (us). čekaju = they wait." },
+      { type:"fill", question:"Goran _____ traži. (Goran is looking for me.)", answer:"me", explanation:"me = accusative of ja (me). 2nd position after 'Goran'." },
+      { type:"mc", question:"'Ona nas poznaje.' means:", options:["She knows us","We know her","She knows them","They know us"], correct:0, explanation:"nas = accusative of mi (us). poznaje = knows." },
+      { type:"mc", question:"'Čekam je.' — what is 'je' replacing?", options:["A feminine noun (her)","A masculine noun","A plural noun","Any noun"], correct:0, explanation:"je = accusative of ona. Replaces feminine nouns. Čekam Anu → Čekam je." },
+      { type:"fill", question:"Volim _____. (I love you — plural.)", answer:"vas", explanation:"vas = accusative of vi (you pl/formal). Volim vas = I love you all." },
+      { type:"mc", question:"'Mama me voli.' means:", options:["Mom loves me","I love mom","Mom loves you","She loves mom"], correct:0, explanation:"me = accusative of ja (me). Mama me voli = Mom loves me." },
+      { type:"mc", question:"How do you say 'I know you (singular)'?", options:["Poznajem te.","Poznajem vas.","Poznajem ga.","Poznajem se."], correct:0, explanation:"te = accusative of ti (you sg). Poznajem te = I know you." },
+      { type:"match", question:"Replace the noun with the correct accusative pronoun", pairs:[["Vidim Anu (Ana, fem)","je"],["Vidim Gorana (Goran, masc)","ga"],["Vidim prijatelje (friends, pl)","ih"],["Ana čeka mene (me)","me"]] },
     ]
   },
   {
@@ -750,6 +896,15 @@ const CHAPTERS = [
       { type:"fill", question:"Ana traži _____ auto. (Ana is looking for her car.) [njen = her]", answer:"njen", explanation:"auto is inanimate masc. → no change. Adjective njen also stays: njen auto." },
       { type:"mc", question:"'Gledam starog prijatelja.' What is 'starog'?", options:["Masculine animate adjective in accusative","Masculine inanimate adjective in accusative","Feminine adjective in accusative","Adverb"], correct:0, explanation:"prijatelj (friend) is animate → takes -a in accusative (prijatelja). Adjective stari → starog (animate masc. acc.)." },
       { type:"match", question:"Match each noun to its correct adjective accusative form", pairs:[["knjiga (book, fem.)","novu"],["pivo (beer, neut.)","hladno"],["mačak (cat, animate)","crnog"],["film (film, inanimate)","stari"]] },
+      { type:"mc", question:"'Imam staru sestru.' means:", options:["I have an older/old sister","I have a new sister","I see my sister","I need an old book"], correct:0, explanation:"staru = stara (fem.) in accusative (-a → -u). sestru = sestra accusative." },
+      { type:"fill", question:"Goran voli _____ psa. (Goran loves his big dog.) [velik, pas = animate]", answer:"velikog", explanation:"pas (dog) is animate masc. → psa. Adjective animate masc. acc.: velik → velikog." },
+      { type:"mc", question:"'Gledam stari film.' — why is 'stari' used (not 'starog')?", options:["film is inanimate → adjective stays","film is animate","stari is always used","star is irregular"], correct:0, explanation:"film is inanimate → doesn't change, and its adjective also stays in the long masc. form: stari." },
+      { type:"fill", question:"Trebam _____ auto. (I need a new car.) [nov]", answer:"novi", explanation:"auto is inanimate masc. → no change. Adjective: nov → novi (long/definite masc. form before noun)." },
+      { type:"mc", question:"'Imam bijelu mačku.' [mačka = cat, fem.] means:", options:["I have a white cat","I have a black cat","I see a white cat","I lost a white cat"], correct:0, explanation:"bijelu = bijela (fem.) in accusative. mačka → mačku. I have a white cat." },
+      { type:"fill", question:"Goran ima _____ konja. (Goran has a black horse.) [crn, konj = animate]", answer:"crnog", explanation:"konj (horse) is animate masc. → konja. Adjective: crn → crnog." },
+      { type:"mc", question:"'Tražim tvoju knjigu.' means:", options:["I'm looking for your book","I have your book","I'm reading your book","I need your book"], correct:0, explanation:"tvoju = tvoja (fem.) in accusative. knjiga → knjigu. I'm looking for your book." },
+      { type:"fill", question:"Čekam _____ brata. (I'm waiting for my brother.)", answer:"mojeg", explanation:"brat is animate masc. → brata. Possessive: mojeg (or mog — both correct)." },
+      { type:"mc", question:"'Trebam moje pismo.' means: [pismo = letter, neuter]", options:["I need my letter","I have my letter","I'm reading my letter","I wrote my letter"], correct:0, explanation:"moje = my (neuter acc., no change). pismo = neuter. I need my letter." },
     ]
   },
   {
@@ -787,6 +942,16 @@ const CHAPTERS = [
       { type:"fill", question:"Ana je u _____. (Ana is in the room.) [soba]", answer:"sobi", explanation:"soba ends in -a → locative: sobi." },
       { type:"mc", question:"'Gledam televiziju u sobi' — what case is 'sobi'?", options:["Locative (where I am)","Accusative (what I'm watching)","Genitive","Dative"], correct:0, explanation:"sobi is locative of soba. u sobi = in the room. Locative answers the question 'where?'" },
       { type:"match", question:"Match each sentence to its English meaning", pairs:[["Ana je u kući.","Ana is in the house."],["Ivan je na poslu.","Ivan is at work."],["Živim u Splitu.","I live in Split."],["Goran je na plaži.","Goran is on the beach."]] },
+      { type:"fill", question:"Ana je u _____. (Ana is in the kitchen.) [kuhinja]", answer:"kuhinji", explanation:"kuhinja ends in -a → locative: kuhinji." },
+      { type:"mc", question:"'Ivan je na večeri.' means:", options:["Ivan is at dinner","Ivan is going to dinner","Ivan had dinner","Ivan is cooking dinner"], correct:0, explanation:"na večeri = at dinner (na + locative of večer)." },
+      { type:"fill", question:"Goran živi u _____. (Goran lives in Dubrovnik.)", answer:"Dubrovniku", explanation:"Dubrovnik is masculine (consonant) → add -u: Dubrovniku." },
+      { type:"mc", question:"'Knjiga je na stolu.' [stol = masc.] means:", options:["The book is on the table","The book is under the table","I put the book on the table","Where is the book?"], correct:0, explanation:"na + locative: stol → stolu. Knjiga je na stolu = The book is on the table." },
+      { type:"fill", question:"Ana je na _____. (Ana is on the phone.) [telefon]", answer:"telefonu", explanation:"telefon is masculine (consonant) → locative: telefonu. na telefonu = on the phone." },
+      { type:"mc", question:"What is the locative of 'grad' (city)?", options:["gradu","gradi","gradom","grade"], correct:0, explanation:"grad is masculine (consonant) → add -u: gradu. u gradu = in the city." },
+      { type:"mc", question:"'Goran je na fakultetu.' means:", options:["Goran is at university","Goran is going to university","Goran is a professor","Goran is studying now"], correct:0, explanation:"na fakultetu = at university (na + locative). fakultet → fakultetu." },
+      { type:"fill", question:"Ana je u _____. (Ana is in the room.) [soba]", answer:"sobi", explanation:"soba ends in -a → locative: sobi." },
+      { type:"match", question:"Match each location expression to its meaning", pairs:[["u gradu","in the city"],["na plaži","on the beach"],["na fakultetu","at university"],["kod kuće","at home"]] },
+      { type:"mc", question:"'Gdje je Ana?' — correct answer: 'Na poslu.'", options:["Ana is at work","Ana is going to work","Ana is in the city","Ana works here"], correct:0, explanation:"Na poslu = at work (locative). Answers 'gdje?' = where someone is." },
     ]
   },
 
@@ -822,6 +987,13 @@ const CHAPTERS = [
       { type:"match", question:"Match the noun to its dative form", pairs:[["Ana","Ani"],["brat","bratu"],["prijatelj","prijatelju"],["sestra","sestri"]] },
       { type:"match", question:"Match dative pronouns to their meaning", pairs:[["mi","to me"],["ti","to you (sg)"],["mu","to him"],["joj","to her"]] },
       { type:"fill", question:"Dala je poklon _____. (She gave a gift to her brother.) [brat]", answer:"bratu", explanation:"brat is masculine → dative: bratu. Dala je poklon bratu = She gave a gift to her brother." },
+      { type:"fill", question:"Dajem _____. (I'm giving it to you.) [short dative, sg]", answer:"ti", explanation:"ti = short/clitic dative of ti (to you). Dajem ti = I give to you." },
+      { type:"mc", question:"'Goran piše sestri.' means:", options:["Goran writes to his sister","Goran writes about his sister","His sister writes to Goran","Goran needs his sister"], correct:0, explanation:"sestri = dative of sestra (-a → -i). piše = writes. Goran piše sestri." },
+      { type:"fill", question:"Kupujem poklon _____. (I'm buying a gift for my friend m.) [prijatelj]", answer:"prijatelju", explanation:"prijatelj is masculine → dative: prijatelju." },
+      { type:"mc", question:"How do you say 'She is writing to him'?", options:["Piše mu.","Piše ga.","Mu piše.","Njemu piše."], correct:0, explanation:"mu = short dative of on (to him). Piše mu = She writes to him. mu goes to 2nd position." },
+      { type:"fill", question:"Donosi _____ ručak. (She's bringing us lunch.) [short dative]", answer:"nam", explanation:"nam = short dative of mi (to us). Donosi nam ručak." },
+      { type:"mc", question:"'Rekao mi je.' means:", options:["He told me","I told him","She told me","He told you"], correct:0, explanation:"mi = dative (to me). je = he/she. Rekao mi je = He told me." },
+      { type:"mc", question:"'Idem kući.' What case is 'kući'?", options:["Dative (directional)","Locative (where I am)","Accusative","Genitive"], correct:0, explanation:"kući = dative of kuća used directionally. idem kući = I'm going home." },
     ]
   },
 
@@ -855,6 +1027,13 @@ const CHAPTERS = [
       { type:"match", question:"Match language to 'in [language]'", pairs:[["hrvatski","na hrvatskom"],["engleski","na engleskom"],["talijanski","na talijanskom"],["njemački","na njemačkom"]] },
       { type:"mc", question:"'Dajem poklon dobroj prijateljici.' — Why is the adjective 'dobroj'?", options:["Feminine dative (-oj)","Feminine accusative","Masculine dative (-om)","Nominative"], correct:0, explanation:"prijateljica is feminine. Dative feminine adjective ending = -oj. dobroj prijateljici = to the good friend." },
       { type:"fill", question:"On dolazi iz _____. (He comes from Bosnia.) [Bosna]", answer:"Bosne", explanation:"Bosna is feminine → genitive: Bosne. iz Bosne = from Bosnia." },
+      { type:"fill", question:"Živim u _____. (I live in Croatia.)", answer:"Hrvatskoj", explanation:"Hrvatska is feminine → locative: Hrvatskoj. u Hrvatskoj = in Croatia." },
+      { type:"mc", question:"'Govorim na talijanskom.' means:", options:["I speak in Italian","I'm going to Italy","I'm Italian","I speak to the Italians"], correct:0, explanation:"na talijanskom = in Italian (na + locative adj). Govorim = I speak." },
+      { type:"fill", question:"On dolazi iz _____. (He comes from Slovenia.) [Slovenija]", answer:"Slovenije", explanation:"Slovenija is feminine → genitive: Slovenije. iz + genitive = from." },
+      { type:"mc", question:"'u dobrom hotelu' — why 'dobrom'?", options:["hotel is masculine → -om in locative","hotel is feminine","all adjectives use -om","dobrom is accusative"], correct:0, explanation:"hotel is masculine → locative adjective: dobar → dobrom. u dobrom hotelu = in a good hotel." },
+      { type:"mc", question:"How do you say 'in a beautiful city' (grad = masc)?", options:["u lijepom gradu","u lijepu gradu","u lijepoj gradu","u lijepe gradu"], correct:0, explanation:"grad is masculine → locative: gradu. Adjective masc. locative: lijep → lijepom." },
+      { type:"fill", question:"Pišem na _____. (I'm writing in English.)", answer:"engleskom", explanation:"engleski → na engleskom = in English." },
+      { type:"match", question:"Match country to 'from [country]'", pairs:[["Hrvatska","iz Hrvatske"],["Italija","iz Italije"],["Bosna","iz Bosne"],["Engleska","iz Engleske"]] },
     ]
   },
 
@@ -889,6 +1068,14 @@ const CHAPTERS = [
       { type:"match", question:"Match demonstrative to its meaning", pairs:[["ovaj","this (near me, masc)"],["taj","that (near you, masc)"],["onaj","that (far away, masc)"],["ovo","this (neuter)"]] },
       { type:"match", question:"Match the time word to its meaning", pairs:[["danas","today"],["večeras","tonight"],["jutros","this morning"],["odmah","right away"]] },
       { type:"mc", question:"'_____ je tvoj kaput?' pointing to a coat near the listener.", options:["Taj","Ovaj","Onaj","To"], correct:0, explanation:"taj (masc.) = that (near the person you're speaking to). Taj je tvoj kaput? = Is that your coat?" },
+      { type:"fill", question:"_____ je moja torba. (This is my bag.)", answer:"Ovo", explanation:"Ovo je = This is (gender-neutral sentence starter)." },
+      { type:"mc", question:"'Taj film je dobar.' means:", options:["That film (near you) is good","This film (near me) is good","That film (far away) is good","Which film is good?"], correct:0, explanation:"taj = that (near the listener). film is masculine." },
+      { type:"fill", question:"_____ žena je lijepa. (That woman over there is beautiful.) — žena = fem.", answer:"Ona", explanation:"ona (fem. demonstrative) = that (far away). Ona žena je lijepa." },
+      { type:"mc", question:"'Dolazim jutros.' means:", options:["I'm coming this morning","I came this morning","I'll come every morning","I come early"], correct:0, explanation:"jutros = this morning. dolazim = I'm coming." },
+      { type:"mc", question:"'Ovo vino je izvrsno.' means:", options:["This wine is excellent","That wine is excellent","This wine is bad","Which wine is excellent?"], correct:0, explanation:"Ovo = this (neut., near me). vino is neuter. izvrsno = excellent." },
+      { type:"fill", question:"Vidimo se _____! (See you tonight!)", answer:"večeras", explanation:"večeras = tonight/this evening. Vidimo se večeras = See you tonight." },
+      { type:"mc", question:"Which phrase means 'right now'?", options:["sada","odmah","jutros","večeras"], correct:0, explanation:"sada = now / right now. odmah = immediately/right away (both are similar, but sada = now)." },
+      { type:"match", question:"Match the demonstrative to what it refers to", pairs:[["ovaj auto","this car (near me, masc)"],["ta knjiga","that book (near you, fem)"],["ono dijete","that child (far, neuter)"],["ova torba","this bag (near me, fem)"]] },
     ]
   },
 
@@ -920,6 +1107,14 @@ const CHAPTERS = [
       { type:"match", question:"Match possessive to its owner", pairs:[["moj","I (ja)"],["tvoj","you sg (ti)"],["naš","we (mi)"],["vaš","you pl (vi)"]] },
       { type:"match", question:"Match name to possessive form", pairs:[["Ana","Anin"],["Goran","Goranov"],["Maja","Majin"],["Ivan","Ivanov"]] },
       { type:"mc", question:"'Gdje su _____ ključevi?' (Where are your (sg.) keys?) — ključevi = masc.pl.", options:["tvoji ključevi","tvoje ključevi","tvoja ključevi","tvojim ključevi"], correct:0, explanation:"ključevi is masculine plural → tvoji (masc.pl. form of tvoj). tvoji ključevi = your keys." },
+      { type:"fill", question:"Gdje je _____ knjiga? (Where is your book? sg.)", answer:"tvoja", explanation:"knjiga is feminine → tvoja (feminine form of tvoj)." },
+      { type:"mc", question:"'Naša kuća je velika.' means:", options:["Our house is big","Their house is big","Your house is big","My house is big"], correct:0, explanation:"Naša = our (feminine, matches kuća). velika = big (feminine)." },
+      { type:"fill", question:"Ovo je _____ auto. (This is his car.) [auto = masc]", answer:"njegov", explanation:"auto is masculine → njegov (masculine form). Ovo je njegov auto." },
+      { type:"mc", question:"'Goranova majka' means:", options:["Goran's mother","Mother Goran","Goran and his mother","Goran's sister"], correct:0, explanation:"Goranov → Goranova (feminine form, agrees with majka). Goran's mother." },
+      { type:"mc", question:"'Vaši prijatelji su ovdje.' means:", options:["Your (pl.) friends are here","Our friends are here","Their friends are here","His friends are here"], correct:0, explanation:"Vaši = your (pl.) — masc. pl. form of vaš. prijatelji = friends (masc. pl.)." },
+      { type:"fill", question:"To je _____ problem. (That's their problem.) [problem = masc]", answer:"njihov", explanation:"problem is masculine → njihov (masculine form of njihov)." },
+      { type:"mc", question:"How do you say 'Maja's apartment'? [stan = masc]", options:["Majin stan","Majina stan","Majino stan","Majinog stan"], correct:0, explanation:"Maja → Majin (possessive). stan is masculine → Majin stan (masc. form, no extra ending)." },
+      { type:"match", question:"Match the possessive to its English meaning", pairs:[["njihova kuća","their house"],["naš grad","our city"],["tvoje dijete","your child (sg)"],["njegova sestra","his sister"]] },
     ]
   },
 
@@ -958,6 +1153,14 @@ const CHAPTERS = [
       { type:"match", question:"Match genitive preposition to meaning", pairs:[["od","from / of"],["bez","without"],["kod","at someone's place"],["zbog","because of"]] },
       { type:"match", question:"Match noun to its genitive form", pairs:[["grad","grada"],["sestra","sestre"],["kuća","kuće"],["brat","brata"]] },
       { type:"mc", question:"'Sjećam se _____ (Ana).' Correct genitive?", options:["Ane","Ani","Anu","Ana"], correct:0, explanation:"Ana is feminine (-a → -e): Ane. sjećati se + genitive. Sjećam se Ane = I remember Ana." },
+      { type:"fill", question:"Čaša _____. (A glass of wine.) [vino]", answer:"vina", explanation:"vino is neuter → genitive: vina (replace -o with -a). čaša vina = a glass of wine." },
+      { type:"mc", question:"'Nema kave.' means:", options:["There is no coffee","There is coffee","I don't have coffee","I need coffee"], correct:0, explanation:"Nema + genitive = there is no / doesn't have. kave = kava in genitive (-a → -e)." },
+      { type:"fill", question:"Bojim se _____. (I'm afraid of the cat.) [mačak]", answer:"mačka", explanation:"mačak → genitive: mačka (animate masc.). bojati se + genitive." },
+      { type:"mc", question:"'Bez brata.' means:", options:["Without my brother","From my brother","Of my brother","At my brother's"], correct:0, explanation:"bez = without (+ genitive). brat → brata. Bez brata = without (my) brother." },
+      { type:"fill", question:"Putujem do _____. (I'm travelling to the sea.) [more]", answer:"mora", explanation:"more is neuter → genitive: mora (replace -e with -a). do mora = to the sea." },
+      { type:"mc", question:"'Oko pet sati.' means:", options:["Around five o'clock","At exactly five","From five o'clock","After five"], correct:0, explanation:"oko = around/about (+ genitive). pet sati = five hours/o'clock." },
+      { type:"mc", question:"'Sjećam se Ivana.' means:", options:["I remember Ivan","I know Ivan","I'm calling Ivan","I'm looking for Ivan"], correct:0, explanation:"sjećati se + genitive. Ivan → Ivana (genitive, masc.). I remember Ivan." },
+      { type:"match", question:"Match the preposition to an example phrase", pairs:[["bez (without)","bez kave"],["od (from/of)","od Gorana"],["zbog (because of)","zbog kiše"],["kod (at someone's)","kod Ane"]] },
     ]
   },
 ];
@@ -984,6 +1187,7 @@ let state = {
   chapterProgress: storage.get('chapterProgress', {}),
   friendData:      storage.get('friendData', null),
   currentChapter:  null,
+  currentUnitIdx:  0,
   currentSteps:    null,
   currentStepIdx:  0,
   shuffledCorrect: -1,
@@ -994,6 +1198,54 @@ let state = {
   wrongSteps:      [],
   isRetryRound:    false
 };
+
+// ── Chapter unit helpers ──
+function getUnits(ch) {
+  if (ch.units) return ch.units;
+  const steps = ch.steps;
+  const exTotal = steps.filter(s => s.type !== 'slide').length;
+  if (exTotal <= 15) return [{ title: 'Lesson', steps }];
+  // Auto-split: new unit starts at a slide once current unit has ≥ 15 exercises;
+  // force-split on exercise if no slide boundary appears.
+  const units = [];
+  let cur = [];
+  let exCount = 0;
+  for (const step of steps) {
+    if (step.type === 'slide') {
+      if (exCount >= 15 && cur.length > 0) {
+        units.push({ title: 'Part ' + (units.length + 1), steps: cur });
+        cur = [step]; exCount = 0;
+      } else { cur.push(step); }
+    } else {
+      if (exCount >= 15) {
+        units.push({ title: 'Part ' + (units.length + 1), steps: cur });
+        cur = [step]; exCount = 1;
+      } else { cur.push(step); exCount++; }
+    }
+  }
+  if (cur.length > 0) units.push({ title: 'Part ' + (units.length + 1), steps: cur });
+  return units;
+}
+function getAllSteps(ch) {
+  return getUnits(ch).flatMap(u => u.steps);
+}
+function getUnitProgress(chId, unitIdx) {
+  const cp = state.chapterProgress[chId];
+  if (!cp) return { stars: 0, completed: 0, total: 0 };
+  if (cp.units) return cp.units[unitIdx] || { stars: 0, completed: 0, total: 0 };
+  // old format: treat as unit 0
+  return unitIdx === 0 ? { stars: cp.stars || 0, completed: cp.completed || 0, total: cp.total || 0 } : { stars: 0, completed: 0, total: 0 };
+}
+function saveUnitProgress(chId, unitIdx, stars, completed, total) {
+  const cp = state.chapterProgress[chId] || {};
+  const ch = CHAPTERS.find(c => c.id === chId);
+  const unitCount = getUnits(ch).length;
+  const existing = cp.units || Array.from({ length: unitCount }, (_, i) => getUnitProgress(chId, i));
+  const updated = [...existing];
+  updated[unitIdx] = { stars: Math.max((updated[unitIdx]?.stars || 0), stars), completed, total };
+  state.chapterProgress[chId] = { ...cp, units: updated };
+  storage.set('chapterProgress', state.chapterProgress);
+}
 
 const STREAK_MILESTONES = {
   3:  '🔥 3-day streak!',
@@ -1036,7 +1288,10 @@ function updateHUD() {
 }
 
 function getChapterProgress(chId) {
-  return state.chapterProgress[chId] || { stars: 0, completed: 0, total: 0 };
+  // For unlock checks: use unit 0 stars. Backward-compat with old saves.
+  const u0 = getUnitProgress(chId, 0);
+  const cp = state.chapterProgress[chId] || {};
+  return { stars: u0.stars, completed: u0.completed, total: u0.total, checkpointDone: cp.checkpointDone || false };
 }
 
 // ── Map ──
@@ -1045,30 +1300,38 @@ function renderMap() {
   grid.innerHTML = '';
   CHAPTERS.forEach((ch, i) => {
     const prev = i < 6 || getChapterProgress(CHAPTERS[i-1].id).stars > 0;
-    const prog = getChapterProgress(ch.id);
     const locked = !prev;
-    const exCount = ch.steps.filter(s => s.type !== 'slide').length;
-    const pct = prog.total > 0 ? Math.round((prog.completed / prog.total) * 100) : 0;
-    const stars = prog.stars || 0;
+    const units = getUnits(ch);
+    const doneUnits = units.filter((u, ui) => getUnitProgress(ch.id, ui).stars > 0).length;
+    const allSteps = getAllSteps(ch);
+    const exCount = allSteps.filter(s => s.type !== 'slide').length;
+    const u0 = getUnitProgress(ch.id, 0);
+    const stars = u0.stars || 0;
+    const pct = units.length > 1
+      ? Math.round((doneUnits / units.length) * 100)
+      : (u0.total > 0 ? Math.round((u0.completed / u0.total) * 100) : 0);
+
+    const unitDots = units.length > 1
+      ? `<div style="display:flex;gap:4px;margin-top:5px;">${units.map((u, ui) => {
+          const up = getUnitProgress(ch.id, ui);
+          const prevUnit = ui === 0 || getUnitProgress(ch.id, ui-1).stars > 0;
+          const color = up.stars > 0 ? '#1D9E75' : prevUnit ? '#ced4da' : '#e9ecef';
+          return `<div style="width:18px;height:4px;border-radius:2px;background:${color};"></div>`;
+        }).join('')}</div>`
+      : '';
+
     const card = document.createElement('div');
     card.className = 'chapter-card' + (locked ? ' locked' : '');
-    const checkpointDone = prog.checkpointDone || false;
-    const notesBtn = stars > 0
-      ? `<div style="display:flex;gap:4px;margin-top:8px;">
-           <button onclick="event.stopPropagation();showChapterSummary(${ch.id})" style="flex:1;background:transparent;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-sm, 4px);padding:4px 6px;font-size:11px;cursor:pointer;color:var(--color-text-secondary);">📚 Notes</button>
-           <button onclick="event.stopPropagation();startCheckpoint(${ch.id})" style="flex:1;background:transparent;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-sm, 4px);padding:4px 6px;font-size:11px;cursor:pointer;color:var(--color-text-secondary);">${checkpointDone ? '✓ ' : ''}🏁 Checkpoint</button>
-         </div>`
-      : '';
     card.innerHTML = `
       ${locked ? '<span class="lock-icon">🔒</span>' : ''}
       <div class="ch-num">Chapter ${ch.id}</div>
       <div style="font-size:22px;margin-bottom:6px;">${ch.icon}</div>
       <div class="ch-title">${ch.title}</div>
       <div class="ch-prog-bar"><div class="ch-prog-fill" style="width:${pct}%"></div></div>
-      <div class="ch-meta"><span class="ch-stars">${'★'.repeat(stars)}${'☆'.repeat(3-stars)}</span>&nbsp; ${exCount} exercises</div>
-      ${notesBtn}
+      <div class="ch-meta"><span class="ch-stars">${'★'.repeat(stars)}${'☆'.repeat(3-stars)}</span>&nbsp; ${units.length > 1 ? doneUnits + '/' + units.length + ' units' : exCount + ' exercises'}</div>
+      ${unitDots}
     `;
-    if (!locked) card.onclick = () => startChapter(ch.id);
+    if (!locked) card.onclick = () => openChapterUnits(ch.id);
     grid.appendChild(card);
   });
   renderFriendBar();
@@ -1110,6 +1373,80 @@ function startWithName() {
   goHome();
 }
 
+// ── Unit picker ──
+function openChapterUnits(chId) {
+  const ch = CHAPTERS.find(c => c.id === chId);
+  const units = getUnits(ch);
+  if (units.length === 1) { startUnit(chId, 0); return; }
+
+  document.getElementById('units-ch-header').innerHTML = `
+    <div style="text-align:center;padding:1.25rem 0 1rem;">
+      <div style="font-size:36px;margin-bottom:8px;">${ch.icon}</div>
+      <div style="font-size:20px;font-weight:600;color:var(--color-text-primary);">Chapter ${ch.id}: ${ch.title}</div>
+    </div>`;
+
+  document.getElementById('units-list').innerHTML = units.map((unit, ui) => {
+    const up = getUnitProgress(chId, ui);
+    const prevDone = ui === 0 || getUnitProgress(chId, ui - 1).stars > 0;
+    const unitLocked = !prevDone;
+    const stars = up.stars || 0;
+    const exCount = unit.steps.filter(s => s.type !== 'slide').length;
+    return `
+      <div onclick="${unitLocked ? '' : `startUnit(${chId},${ui})`}"
+           style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;align-items:center;gap:14px;${unitLocked ? 'opacity:0.45;cursor:not-allowed;' : 'cursor:pointer;'}">
+        <div style="font-size:26px;line-height:1;">${unitLocked ? '🔒' : stars > 0 ? '✅' : '📖'}</div>
+        <div style="flex:1;">
+          <div style="font-weight:500;color:var(--color-text-primary);margin-bottom:3px;">${unit.title}</div>
+          <div style="font-size:12px;color:var(--color-text-secondary);">${exCount} exercises${stars > 0 ? ' &nbsp;·&nbsp; ' + '★'.repeat(stars) + '☆'.repeat(3 - stars) : ''}</div>
+        </div>
+        ${!unitLocked ? '<div style="font-size:20px;color:var(--color-text-tertiary);">›</div>' : ''}
+      </div>`;
+  }).join('');
+
+  const cp = state.chapterProgress[chId] || {};
+  const hasProgress = units.some((u, ui) => getUnitProgress(chId, ui).stars > 0);
+  document.getElementById('units-actions').innerHTML = hasProgress
+    ? `<div style="display:flex;gap:8px;margin-top:0.5rem;">
+         <button class="ghost-btn" onclick="showChapterSummary(${chId})" style="flex:1;padding:8px;">📚 Notes</button>
+         <button class="ghost-btn" onclick="startCheckpoint(${chId})" style="flex:1;padding:8px;">${cp.checkpointDone ? '✓ ' : ''}🏁 Checkpoint</button>
+       </div>`
+    : '';
+
+  showScreen('screen-units');
+}
+
+// ── Lesson ──
+function startUnit(chId, unitIdx) {
+  checkAndUpdateStreak();
+  const ch = CHAPTERS.find(c => c.id === chId);
+  const units = getUnits(ch);
+  const unit = units[unitIdx];
+  state.currentChapter = ch;
+  state.currentUnitIdx = unitIdx;
+  state.currentSteps = [...unit.steps];
+  state.isCheckpoint = false;
+  state.currentStepIdx = 0;
+  state.sessionCorrect = 0;
+  state.sessionExCount = 0;
+  state.wrongSteps = [];
+  state.isRetryRound = false;
+  state.lives = 3;
+  const unitLabel = units.length > 1 ? ' · ' + unit.title : '';
+  document.getElementById('lesson-title-display').textContent = ch.icon + ' ' + ch.title;
+  document.getElementById('lesson-subtitle-display').textContent = 'Chapter ' + chId + unitLabel;
+  showScreen('screen-lesson');
+  updateHUD();
+  renderStep();
+}
+
+function startChapter(chId) { openChapterUnits(chId); }
+
+function backFromLesson() {
+  const ch = state.currentChapter;
+  if (ch && getUnits(ch).length > 1) openChapterUnits(ch.id);
+  else goHome();
+}
+
 // ── Checkpoint ──
 function startCheckpoint(chId) {
   checkAndUpdateStreak();
@@ -1117,7 +1454,7 @@ function startCheckpoint(chId) {
   const chIdx = CHAPTERS.findIndex(c => c.id === chId);
   const pool = [];
   for (let i = 0; i <= chIdx; i++) {
-    CHAPTERS[i].steps.filter(s => s.type !== 'slide').forEach(ex => {
+    getAllSteps(CHAPTERS[i]).filter(s => s.type !== 'slide').forEach(ex => {
       pool.push(Object.assign({}, ex, { _review: true }));
     });
   }
@@ -1381,19 +1718,20 @@ function nextStep() {
 // ── Complete screen ──
 function showComplete() {
   const ch = state.currentChapter;
+  const unitIdx = state.currentUnitIdx;
   const correct = state.sessionCorrect;
   const total   = state.sessionExCount || state.currentSteps.filter(s => s.type !== 'slide').length;
   const stars   = correct >= total * 0.9 ? 3 : correct >= total * 0.7 ? 2 : 1;
   const bonus   = stars === 3 ? 20 : stars === 2 ? 10 : 0;
   const earnedXP = correct * 10 + bonus;
 
-  const prev = getChapterProgress(ch.id);
+  const cp = state.chapterProgress[ch.id] || {};
   if (state.isCheckpoint) {
-    state.chapterProgress[ch.id] = Object.assign({}, prev, { checkpointDone: true });
+    state.chapterProgress[ch.id] = Object.assign({}, cp, { checkpointDone: true });
+    storage.set('chapterProgress', state.chapterProgress);
   } else {
-    state.chapterProgress[ch.id] = { stars: Math.max(prev.stars || 0, stars), completed: correct, total, checkpointDone: prev.checkpointDone || false };
+    saveUnitProgress(ch.id, unitIdx, stars, correct, total);
   }
-  storage.set('chapterProgress', state.chapterProgress);
 
   if (state.isCheckpoint) {
     document.getElementById('complete-trophy').textContent = '🏁';
@@ -1410,12 +1748,23 @@ function showComplete() {
   document.getElementById('streak-complete-display').textContent = state.streak + ' day streak';
 
   const chIdx = CHAPTERS.findIndex(c => c.id === ch.id);
-  const nextBtn = document.getElementById('next-chapter-btn');
-  if (!state.isCheckpoint && chIdx < CHAPTERS.length - 1) {
-    nextBtn.style.display = 'inline-block';
-    nextBtn.textContent = 'Next: ' + CHAPTERS[chIdx+1].title + ' →';
+  const units = getUnits(ch);
+  const isLastUnit = unitIdx >= units.length - 1;
+  const nextUnitBtn = document.getElementById('next-unit-btn');
+  const nextChBtn = document.getElementById('next-chapter-btn');
+
+  if (!state.isCheckpoint && !isLastUnit) {
+    nextUnitBtn.style.display = 'inline-block';
+    nextUnitBtn.textContent = 'Next: ' + units[unitIdx + 1].title + ' →';
   } else {
-    nextBtn.style.display = 'none';
+    nextUnitBtn.style.display = 'none';
+  }
+
+  if (!state.isCheckpoint && isLastUnit && chIdx < CHAPTERS.length - 1) {
+    nextChBtn.style.display = 'inline-block';
+    nextChBtn.textContent = 'Next chapter →';
+  } else {
+    nextChBtn.style.display = 'none';
   }
 
   document.getElementById('complete-checkpoint-wrap').innerHTML = !state.isCheckpoint
@@ -1426,9 +1775,14 @@ function showComplete() {
   updateHUD();
 }
 
+function nextUnit() {
+  const ch = state.currentChapter;
+  startUnit(ch.id, state.currentUnitIdx + 1);
+}
+
 function nextChapter() {
   const idx = CHAPTERS.findIndex(c => c.id === state.currentChapter.id);
-  if (idx < CHAPTERS.length - 1) startChapter(CHAPTERS[idx+1].id);
+  if (idx < CHAPTERS.length - 1) openChapterUnits(CHAPTERS[idx+1].id);
   else goHome();
 }
 
@@ -1489,7 +1843,7 @@ function showChapterSummary(chId) {
   if (!chId) return;
   const ch = CHAPTERS.find(c => c.id === chId);
   if (!ch) return;
-  const slides = ch.steps.filter(s => s.type === 'slide');
+  const slides = getAllSteps(ch).filter(s => s.type === 'slide');
   document.getElementById('summary-chapter-title').textContent = ch.icon + ' Chapter ' + ch.id + ': ' + ch.title;
   document.getElementById('summary-content').innerHTML = slides.map((s, i) => `
     <div style="${i > 0 ? 'padding-top:1.25rem;margin-top:1.25rem;border-top:0.5px solid var(--color-border-tertiary);' : ''}">
