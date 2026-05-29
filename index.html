@@ -1163,6 +1163,351 @@ const CHAPTERS = [
       { type:"match", question:"Match the preposition to an example phrase", pairs:[["bez (without)","bez kave"],["od (from/of)","od Gorana"],["zbog (because of)","zbog kiše"],["kod (at someone's)","kod Ane"]] },
     ]
   },
+
+  {
+    id: 21, icon:"🗺️", title:"Origins",
+    steps: [
+      { type:"slide", title:"Where from: iz + G and s/sa + G",
+        content:`<p>These prepositions are the <em>opposites</em> of <span class="hl">u + A</span> and <span class="hl">na + A</span>:</p>
+<table class="vocab-table"><tr><th>Going to</th><th>Coming from</th></tr><tr><td>u školu</td><td>iz škole</td></tr><tr><td>na plažu</td><td>s plaže</td></tr><tr><td>u Zagreb</td><td>iz Zagreba</td></tr><tr><td>na Krk</td><td>s Krka</td></tr></table>
+<p style="margin-top:0.75rem;"><span class="hl">s</span> becomes <span class="hl">sa</span> before s-, š-, z-, ž- or consonant clusters.</p>` },
+      { type:"mc", question:"'Goran dolazi iz škole.' means:", options:["Goran is coming from school","Goran is going to school","Goran is at school","Goran left school early"], correct:0, explanation:"iz + G = from (enclosed place). škola → škole (G fem). Goran is coming from school." },
+      { type:"fill", question:"Vraćamo se _____ plaže. (We're coming back from the beach.)", answer:"s", explanation:"s/sa + G = from an open place. na plaža → s plaže (G: -a → -e)." },
+      { type:"mc", question:"'Josip se vraća iz Zagreba.' means:", options:["Josip is returning from Zagreb","Josip is going to Zagreb","Josip lives in Zagreb","Josip is from Zagreb"], correct:0, explanation:"iz + G = from. Zagreb → Zagreba (G masc). Josip is returning from Zagreb." },
+      { type:"fill", question:"Idem s _____. (I'm leaving from work.) [posao → posla]", answer:"posla", explanation:"s + G. posao → posla (G, irregular). Idem s posla = I'm leaving work." },
+      { type:"mc", question:"'Odakle si?' means:", options:["Where are you from?","Where are you going?","Where are you now?","When did you arrive?"], correct:0, explanation:"odakle = where from? Asks about origin or where someone is coming from." },
+      { type:"fill", question:"Goran dolazi _____ Rijeke. (Goran comes from Rijeka.)", answer:"iz", explanation:"Rijeka is a city (enclosed place) → iz + G. Rijeka → Rijeke (G fem)." },
+      { type:"mc", question:"Which is correct for 'I'm coming from the concert'?", options:["Dolazim s koncerta.","Dolazim iz koncerta.","Dolazim od koncerta.","Dolazim koncerta."], correct:0, explanation:"Koncert is an event/activity → s + G. koncert → koncerta (G masc). Dolazim s koncerta." },
+      { type:"slide", title:"od + G for material and possession; prije/poslije",
+        content:`<p><span class="hl">od + G</span> = from a person, or expressing <em>what something is made of</em>:</p>
+<div class="example-box"><span class="cro">Sok od jabuke.</span><span class="eng">Apple juice. (juice of apple)</span><span class="cro">Kuća od kamena.</span><span class="eng">A house of stone.</span><span class="cro">Ana odlazi od zubara.</span><span class="eng">Ana is leaving the dentist.</span></div>
+<p style="margin-top:0.75rem;"><span class="hl">od...do</span> = from...to: <em>Radim od osam do četiri.</em></p>
+<p style="margin-top:0.75rem;"><span class="hl">prije + G</span> = before &nbsp;|&nbsp; <span class="hl">poslije + G</span> = after:</p>
+<div class="example-box"><span class="cro">Jedem doručak prije posla.</span><span class="eng">I eat breakfast before work.</span><span class="cro">Poslije plaže idemo na večeru.</span><span class="eng">After the beach, we're going to dinner.</span></div>` },
+      { type:"mc", question:"'Sok od jabuke' means:", options:["Apple juice","Juice with apple","Juice for apples","Apple flavour"], correct:0, explanation:"od + G expresses what something is made of / contains. jabuka → jabuke (G fem). Apple juice." },
+      { type:"fill", question:"Radim _____ devet _____ pet. (I work from nine to five.)", answer:"od, do", explanation:"od...do = from...to. od devet do pet." },
+      { type:"mc", question:"'Poslije posla idem na kavu.' means:", options:["After work I'm going for a coffee","Before work I drink coffee","I work after coffee","Coffee before leaving"], correct:0, explanation:"poslije + G = after. posao → posla (G). After work I'm going for a coffee." },
+      { type:"fill", question:"Jedem _____ spavanja. (I eat before sleeping.) [spavanje → G]", answer:"prije", explanation:"prije + G = before. spavanje → spavanja (G neut). Jedem prije spavanja." },
+      { type:"mc", question:"'Ideš li na posao ili s posla?' — 'na posao' vs 's posla' means:", options:["To work / from work","At work / to work","From work / at work","On the job / off work"], correct:0, explanation:"na posao = going to work (destination). s posla = coming back from work (origin). Opposite directions!" },
+      { type:"fill", question:"Ivan putuje s _____. (Ivan is travelling from the island of Krk.) [Krk → G]", answer:"Krka", explanation:"Krk → Krka (G masc). s + G (island → s/sa). s Krka = from Krk." },
+      { type:"mc", question:"'Odakle si?' — a natural reply would be:", options:["Iz Splita.","U Splitu.","Na Split.","Do Splita."], correct:0, explanation:"odakle = where from? Answer uses iz + G. Split → Splita (G masc). Iz Splita = From Split." },
+      { type:"mc", question:"'Ana dolazi od Gorana.' means:", options:["Ana is coming from Goran's place","Ana is going to Goran","Ana is with Goran","Ana is calling Goran"], correct:0, explanation:"od + G (person) = from someone's place. Goran → Gorana (G). Ana je coming from Goran's." },
+      { type:"fill", question:"Kuća je _____ kamena. (The house is made of stone.)", answer:"od", explanation:"od + G = made of. od kamena = of stone." },
+      { type:"mc", question:"'Vraćamo se s plaže poslije podne.' means:", options:["We're coming back from the beach after noon","We went to the beach in the afternoon","We're going to the beach before noon","We swim all afternoon"], correct:0, explanation:"s plaže = from the beach. poslije podne = after noon. We come back from the beach after noon." },
+      { type:"match", question:"Match destination to its opposite origin", pairs:[["u školu (to school)","iz škole"],["na plažu (to beach)","s plaže"],["u Zagreb (to Zagreb)","iz Zagreba"],["na Krk (to Krk island)","s Krka"]] },
+      { type:"match", question:"Match to the correct preposition", pairs:[["coming from the sea","s mora"],["apple juice","od jabuke"],["from Zagreb","iz Zagreba"],["from Goran's place","od Gorana"]] },
+      { type:"mc", question:"'Ana dolazi sa sastanka.' means: [sastanak = meeting]", options:["Ana is coming from a meeting","Ana is going to a meeting","Ana is at a meeting","Ana had a meeting"], correct:0, explanation:"Sastanak (meeting) is an activity → s + G. s becomes sa before s-: sa sastanka. Ana is coming from a meeting." },
+    ]
+  },
+
+  {
+    id: 22, icon:"👋", title:"Here I Am: More Pronouns",
+    steps: [
+      { type:"slide", title:"Genitive/accusative and dative/locative pronouns",
+        content:`<p>Pronouns in A/G and DL must go to <strong>2nd position</strong>. DL comes <em>before</em> A/G when both appear:</p>
+<table class="vocab-table"><tr><th>Person</th><th>A/G</th><th>DL</th></tr><tr><td>ja (I)</td><td><span class="hl">me</span></td><td><span class="hl">mi</span></td></tr><tr><td>ti (you sg)</td><td><span class="hl">te</span></td><td><span class="hl">ti</span></td></tr><tr><td>on/ono (he/it)</td><td><span class="hl">ga</span></td><td><span class="hl">mu</span></td></tr><tr><td>ona (she)</td><td><span class="hl">je/ju</span></td><td><span class="hl">joj</span></td></tr><tr><td>mi (we)</td><td><span class="hl">nas</span></td><td><span class="hl">nam</span></td></tr><tr><td>vi (you pl)</td><td><span class="hl">vas</span></td><td><span class="hl">vam</span></td></tr><tr><td>oni/one</td><td><span class="hl">ih</span></td><td><span class="hl">im</span></td></tr></table>` },
+      { type:"mc", question:"'Šaljem ti ga.' means:", options:["I'm sending it to you","You're sending it to me","I'm sending you to him","He sends it to you"], correct:0, explanation:"ti = DL (to you), ga = A/G (it/him). DL comes before A. Šaljem ti ga = I'm sending it to you." },
+      { type:"fill", question:"Pišem _____. (I'm writing to her.) [DL of ona]", answer:"joj", explanation:"joj = DL of ona (to her). Goes to 2nd position: Pišem joj." },
+      { type:"mc", question:"'Ne razumijem te.' means:", options:["I don't understand you","You don't understand me","We don't understand","I don't understand her"], correct:0, explanation:"te = A/G of ti (you as object). ne razumijem = I don't understand. I don't understand you." },
+      { type:"fill", question:"Ana _____ čeka. (Ana is waiting for them.)", answer:"ih", explanation:"ih = A/G plural (them). 2nd position after Ana. Ana ih čeka." },
+      { type:"mc", question:"'Marko joj šalje poruku.' — what does 'joj' mean here?", options:["to her","to him","to them","to you"], correct:0, explanation:"joj = DL of ona (to her). Marko is sending her a message." },
+      { type:"mc", question:"How do you say 'I don't understand her'?", options:["Ne razumijem je.","Ne razumijem joj.","Ne razumijem ona.","Ne joj razumijem."], correct:0, explanation:"je = accusative of ona (her). Ne razumijem je. Note: je must be in 2nd position — so Ne razumijem je is fine." },
+      { type:"slide", title:"'Evo' and 'Nema' with genitive",
+        content:`<p><span class="hl">evo + G</span> = here is / here are (something now visible or present):</p>
+<div class="example-box"><span class="cro">Evo me!</span><span class="eng">Here I am!</span><span class="cro">Evo Ane.</span><span class="eng">Here's Ana!</span><span class="cro">Evo piva.</span><span class="eng">Here's the beer!</span></div>
+<p style="margin-top:0.75rem;"><span class="hl">nema + G</span> = there is no / isn't here:</p>
+<div class="example-box"><span class="cro">Nema piva.</span><span class="eng">There's no beer.</span><span class="cro">Nema Ane.</span><span class="eng">Ana isn't here.</span><span class="cro">Nema ga.</span><span class="eng">He's not here.</span><span class="cro">Nema veze.</span><span class="eng">Never mind / doesn't matter.</span></div>` },
+      { type:"mc", question:"'Evo ga!' means:", options:["Here he/it is!","Here I am!","Here she is!","Here they are!"], correct:0, explanation:"evo + G: ga = G of on/ono. Evo ga = Here he is / Here it is!" },
+      { type:"fill", question:"_____ moje knjige. (My book isn't here.)", answer:"Nema", explanation:"Nema + G = there is no / isn't here. knjiga → knjige (G fem)." },
+      { type:"mc", question:"'Nema veze.' means:", options:["Never mind / it doesn't matter","There's no connection","There's no Wi-Fi","The connection is broken"], correct:0, explanation:"nema veze is an idiom. veza = connection, but this phrase means never mind / doesn't matter." },
+      { type:"fill", question:"Evo _____! (Here's Ana!)", answer:"Ane", explanation:"evo + G: Ana → Ane (G fem). Evo Ane! = Here's Ana!" },
+      { type:"mc", question:"'Ivan im šalje poruku.' means:", options:["Ivan is sending them a message","Ivan is sending a message to her","They are sending Ivan a message","Ivan's message is here"], correct:0, explanation:"im = DL plural (to them). šalje = sends. Ivan is sending them a message." },
+      { type:"fill", question:"Šaljem _____ poklon. (I'm sending them a gift.) [DL pl]", answer:"im", explanation:"im = DL of oni (to them). Šaljem im poklon = I'm sending them a gift." },
+      { type:"mc", question:"'Hvala ti!' vs 'Hvala Vam!' — the difference is:", options:["ti is informal sg, Vam is formal/plural","ti is plural, Vam is singular","No difference","Vam is written only"], correct:0, explanation:"Hvala + DL. ti = informal singular. Vam = formal/plural. Matches the register of the conversation." },
+      { type:"fill", question:"Evo _____! (Here I am!)", answer:"me", explanation:"evo + G: G of ja = me. Evo me! = Here I am!" },
+      { type:"mc", question:"'Daje mu je.' — what is the word order rule here?", options:["DL pronoun (mu) comes before A/G pronoun (je)","A/G comes before DL","Both are interchangeable","je comes first because it's shorter"], correct:0, explanation:"When two second-position pronouns appear together, DL always comes first: mu (DL) before je (A)." },
+      { type:"match", question:"Match each pronoun to its case and meaning", pairs:[["me","A/G of ja (me)"],["mi","DL of ja (to me)"],["te","A/G of ti (you)"],["ti","DL of ti (to you)"]] },
+      { type:"match", question:"Match 3rd person pronoun to its meaning", pairs:[["ga","A/G him/it"],["mu","DL to him"],["joj","DL to her"],["ih","A/G them"]] },
+      { type:"fill", question:"Ivan _____ piše pismo. (Ivan is writing her a letter.) [to her, DL]", answer:"joj", explanation:"joj = DL of ona (to her). 2nd position: Ivan joj piše pismo." },
+      { type:"mc", question:"'Nema ih.' means:", options:["They're not here","There's nothing","He's not here","We're not here"], correct:0, explanation:"ih = A/G plural (them). Nema ih = They're not here / There are none of them." },
+      { type:"mc", question:"Correct word order: 'She sends it to them.'", options:["Ona im ga šalje.","Ona ga im šalje.","Ona šalje im ga.","Im ga ona šalje."], correct:0, explanation:"im (DL) before ga (A). Both in 2nd position block after the subject. Ona im ga šalje." },
+    ]
+  },
+
+  {
+    id: 23, icon:"🌡️", title:"Basic Impressions",
+    steps: [
+      { type:"slide", title:"Expressing feelings: DL + je + adjective",
+        content:`<p>To say how you feel, Croatian adds the <em>experiencer</em> in <span class="hl">dative (DL)</span> before <strong>je</strong> and an adjective:</p>
+<div class="example-box"><span class="cro">Hladno mi je.</span><span class="eng">I'm cold. (lit. it's cold to me)</span><span class="cro">Ani je hladno.</span><span class="eng">Ana is cold.</span><span class="cro">Hladno nam je.</span><span class="eng">We're cold.</span></div>
+<p style="margin-top:0.75rem;">Common adjectives: <span class="hl">hladno</span> cold · <span class="hl">toplo</span> warm · <span class="hl">vruće</span> hot · <span class="hl">dosadno</span> boring · <span class="hl">lijepo</span> nice · <span class="hl">zabavno</span> fun · <span class="hl">loše</span> bad · <span class="hl">bučno</span> noisy</p>` },
+      { type:"mc", question:"'Dosadno mi je.' means:", options:["I'm bored","I'm tired","I'm cold","I'm sorry"], correct:0, explanation:"Dosadno + DL + je = boring to me = I'm bored. mi = DL of ja." },
+      { type:"fill", question:"Vruće _____ je. (She is hot.) [DL of ona]", answer:"joj", explanation:"joj = DL of ona. Vruće joj je = She is hot (it's hot to her)." },
+      { type:"mc", question:"'Lijepo nam je ovdje.' means:", options:["It's nice here for us / we like it here","The place is beautiful","We think it's ugly","We're comfortable here always"], correct:0, explanation:"lijepo = nice. nam = DL of mi. ovdje = here. It's nice here for us." },
+      { type:"fill", question:"Hladno _____. (They are cold.) [DL of oni + je]", answer:"im je", explanation:"im = DL of oni (to them). je = 3rd person biti. Hladno im je." },
+      { type:"mc", question:"How do you say 'Goran is bored'?", options:["Goranu je dosadno.","Goran je dosadan.","Goranu dosadno.","Goran dosadan je."], correct:0, explanation:"Goran in DL: Goranu. je dosadno = it is boring. Goranu je dosadno = Goran is bored." },
+      { type:"mc", question:"'Bučno ti je?' means:", options:["Is it noisy for you?","Are you loud?","Is the music yours?","Are you busy?"], correct:0, explanation:"Bučno + ti (DL, you) + je? = Is it noisy to you? = Is it noisy for you?" },
+      { type:"slide", title:"osjećati se + expressions with DL",
+        content:`<p><span class="hl">osjećati se + adverb</span> = to feel (internally):</p>
+<div class="example-box"><span class="cro">Osjećam se dobro.</span><span class="eng">I feel well.</span><span class="cro">Osjećam se umorno.</span><span class="eng">I feel tired.</span><span class="cro">Kako se osjećaš?</span><span class="eng">How do you feel?</span></div>
+<p style="margin-top:0.75rem;">Fixed DL expressions:</p>
+<table class="vocab-table"><tr><td><span class="hl">Drago mi je.</span></td><td>I'm glad / Nice to meet you.</td></tr><tr><td><span class="hl">Žao mi je.</span></td><td>I'm sorry.</td></tr><tr><td><span class="hl">Nedostaješ mi.</span></td><td>I miss you.</td></tr><tr><td><span class="hl">Treba mi čaša.</span></td><td>I need a glass. (glass is needed by me)</td></tr></table>` },
+      { type:"mc", question:"'Osjećam se umorno.' means:", options:["I feel tired","I am tired (fact)","I feel cold","I am bored"], correct:0, explanation:"osjećati se + adverb = feel. umorno = tiredly. I feel tired." },
+      { type:"fill", question:"_____ mi je. (I'm sorry.)", answer:"Žao", explanation:"Žao mi je = I'm sorry (lit. sorry to me). A fixed expression." },
+      { type:"mc", question:"'Nedostaješ mi.' means:", options:["I miss you","You miss me","I need you here","You're missing something"], correct:0, explanation:"nedostajati = to be missing. mi = DL (to me). Subject = you. I miss you (you are missing to me)." },
+      { type:"fill", question:"Treba _____ kava. (I need coffee.) [I = 1st sg DL]", answer:"mi", explanation:"Treba + DL + subject (N). mi = DL of ja. Treba mi kava = I need coffee." },
+      { type:"mc", question:"'Ani je loše.' means:", options:["Ana feels bad/sick","Ana is bad","The bad thing is Ana's","Ana is not well here"], correct:0, explanation:"Ani = DL of Ana. loše = badly/bad. Ani je loše = Ana feels bad/sick." },
+      { type:"fill", question:"Osjećam se _____. (I feel great.) [odlično]", answer:"odlično", explanation:"osjećati se + adverb. odlično = excellently/great." },
+      { type:"mc", question:"'Prevruće nam je.' means:", options:["It's too hot for us","We are very hot","We feel cold","We're sweating"], correct:0, explanation:"pre- = too. vruće = hot. nam = DL of mi. It's too hot for us." },
+      { type:"fill", question:"_____ mi je. (I'm glad.)", answer:"Drago", explanation:"Drago mi je = I'm glad / Nice to meet you. Fixed DL expression." },
+      { type:"mc", question:"'Zabavno ti je?' correctly asks:", options:["Are you having fun?","Do you like to have fun?","Is it fun for them?","Were you having fun?"], correct:0, explanation:"Zabavno ti je? = Is it fun to you? = Are you having fun?" },
+      { type:"mc", question:"Which is correct for 'We're having fun'?", options:["Zabavno nam je.","Zabavni smo.","Zabavljamo.","Nam je zabavno je."], correct:0, explanation:"Zabavno nam je = It's fun to us = We're having fun. Standard DL + je + adj construction." },
+      { type:"fill", question:"Kako _____ osjećaš? (How do you feel?)", answer:"se", explanation:"osjećati se = reflexive. se goes to 2nd position. Kako se osjećaš?" },
+      { type:"match", question:"Match the DL feeling expression to its meaning", pairs:[["Hladno mi je.","I'm cold."],["Dosadno ti je?","Are you bored?"],["Drago mi je.","I'm glad."],["Žao mi je.","I'm sorry."]] },
+      { type:"match", question:"Match to the Croatian expression", pairs:[["I feel tired.","Osjećam se umorno."],["I miss you.","Nedostaješ mi."],["I need a glass.","Treba mi čaša."],["Ana feels great.","Ana se osjeća odlično."]] },
+      { type:"fill", question:"Treba _____ odmor. (He needs a rest.) [DL of on]", answer:"mu", explanation:"mu = DL of on (to him). Treba mu odmor = He needs a rest." },
+    ]
+  },
+
+  {
+    id: 24, icon:"⏪", title:"Past Tense",
+    steps: [
+      { type:"slide", title:"How the past tense works",
+        content:`<p>Past tense = <span class="hl">past participle</span> + present of <strong>biti</strong> in 2nd position. The participle matches the <strong>gender of the subject</strong>:</p>
+<table class="vocab-table"><tr><th></th><th>Singular</th><th>Plural</th></tr><tr><td><strong>Fem</strong></td><td>-la (čitala)</td><td>-le (čitale)</td></tr><tr><td><strong>Neut</strong></td><td>-lo (čitalo)</td><td>-la (čitala)</td></tr><tr><td><strong>Masc</strong></td><td>-o/-ao (čitao)</td><td>-li (čitali)</td></tr></table>
+<div class="example-box"><span class="cro">Ana je čitala.</span><span class="eng">Ana was reading.</span><span class="cro">Goran je čitao.</span><span class="eng">Goran was reading.</span><span class="cro">Spavala sam.</span><span class="eng">I was sleeping. (female speaker)</span><span class="cro">Spavao sam.</span><span class="eng">I was sleeping. (male speaker)</span></div>` },
+      { type:"mc", question:"'Ana je plesala.' means:", options:["Ana was dancing","Ana is dancing","Ana dances","Ana started dancing"], correct:0, explanation:"plesati → plesala (fem. past). je = 3rd sg biti (2nd position). Ana was dancing." },
+      { type:"fill", question:"Ivan je _____. (Ivan was working.) [raditi, male]", answer:"radio", explanation:"raditi → radio (masc. past, -ao ending). Ivan je radio = Ivan was working." },
+      { type:"mc", question:"A female speaker says 'I was sleeping'. She says:", options:["Spavala sam.","Spavao sam.","Spavala je.","Spavala smo."], correct:0, explanation:"Female speaker → fem. past: spavala. 1st person: sam. Spavala sam." },
+      { type:"mc", question:"'Nije spavao.' means:", options:["He wasn't sleeping","He was sleeping","He doesn't sleep","She wasn't sleeping"], correct:0, explanation:"nije = negation of je (3rd sg). spavao = masc. past. He wasn't sleeping." },
+      { type:"fill", question:"Bili smo _____. (We were tired.) [umoran, m pl]", answer:"umorni", explanation:"bili (m pl past of biti) + umorni (m pl adj). Bili smo umorni = We were tired." },
+      { type:"mc", question:"'Bilo je hladno.' means:", options:["It was cold","She was cold","He was cold","We were cold"], correct:0, explanation:"bilo = neuter past of biti (impersonal — no subject). It was cold." },
+      { type:"slide", title:"Key irregular pasts + time adverbs",
+        content:`<table class="vocab-table"><tr><th>Infinitive</th><th>Past (m)</th><th>Past (f)</th></tr><tr><td>biti (be)</td><td>bio</td><td>bila</td></tr><tr><td>ići (go)</td><td>išao</td><td>išla</td></tr><tr><td>vidjeti (see)</td><td>vidio</td><td>vidjela</td></tr><tr><td>piti (drink)</td><td>pio</td><td>pila</td></tr><tr><td>pisati (write)</td><td>pisao</td><td>pisala</td></tr><tr><td>plesati (dance)</td><td>plesao</td><td>plesala</td></tr></table>
+<p style="margin-top:0.75rem;">Time adverbs: <span class="hl">juče(r)</span> yesterday · <span class="hl">nedavno</span> recently · <span class="hl">davno</span> long ago · <span class="hl">nekad(a)</span> once/some time ago</p>` },
+      { type:"mc", question:"'Vidio sam Anu juče.' means:", options:["I saw Ana yesterday","Ana saw me yesterday","I'm seeing Ana","I saw Ana once"], correct:0, explanation:"vidio = masc. past of vidjeti. sam = 1st sg. juče(r) = yesterday. I saw Ana yesterday." },
+      { type:"fill", question:"Ana je _____ u Split. (Ana went to Split.) [ići, female]", answer:"išla", explanation:"ići past (f): išla. Ana je išla u Split." },
+      { type:"mc", question:"'Pila je vino.' means:", options:["She was drinking wine","He was drinking wine","She drinks wine","They were drinking wine"], correct:0, explanation:"pila = fem. past of piti. je = 3rd sg. She was drinking wine." },
+      { type:"fill", question:"Goran je _____ umoran. (Goran was tired.)", answer:"bio", explanation:"biti past (m): bio. Goran je bio umoran." },
+      { type:"mc", question:"'Nisam spavala.' — the speaker is:", options:["A female who wasn't sleeping","A male who wasn't sleeping","A female who was sleeping","Unknown gender"], correct:0, explanation:"spavala = feminine past. nisam = 1st sg negation. The speaker is female: I wasn't sleeping." },
+      { type:"fill", question:"_____ sam nedavno u kinu. (I was at the cinema recently.) [male speaker]", answer:"Bio", explanation:"bio = masc. past of biti. sam = 1st sg. nedavno = recently." },
+      { type:"mc", question:"'Jeli smo juhu.' means:", options:["We were eating soup","They ate soup","We eat soup","I was eating soup"], correct:0, explanation:"Jeli = m/mixed past pl of jesti. smo = 1st pl biti. We were eating soup." },
+      { type:"fill", question:"Ana je _____ kavu. (Ana was drinking coffee.)", answer:"pila", explanation:"piti past (f): pila. Ana je pila kavu." },
+      { type:"mc", question:"'Davno sam živio u Splitu.' means:", options:["I lived in Split a long time ago","I live in Split now","I recently lived in Split","I want to live in Split"], correct:0, explanation:"davno = long ago. živio = masc. past of živjeti. I lived in Split long ago." },
+      { type:"mc", question:"'Čekali su nas.' means:", options:["They were waiting for us","We were waiting for them","They waited for you","He was waiting for us"], correct:0, explanation:"Čekali = m pl past. su = 3rd pl biti. nas = A/G of mi. They were waiting for us." },
+      { type:"fill", question:"Goran nije pio _____. (Goran was not drinking wine.)", answer:"vino", explanation:"nije pio = he wasn't drinking (masc. past + negation). vino = wine (neuter, no change in A)." },
+      { type:"match", question:"Match the verb to its masculine past tense form", pairs:[["ići","išao"],["piti","pio"],["biti","bio"],["vidjeti","vidio"]] },
+      { type:"match", question:"Match the verb to its feminine past tense form", pairs:[["čitati","čitala"],["spavati","spavala"],["biti","bila"],["ići","išla"]] },
+      { type:"mc", question:"'Bili su umorni.' means:", options:["They (m/mixed) were tired","She was tired","He was tired","You were tired"], correct:0, explanation:"Bili = m pl past of biti. su = 3rd pl. umorni = m pl adj. They (mixed/male group) were tired." },
+    ]
+  },
+
+  {
+    id: 25, icon:"📚", title:"Plural",
+    steps: [
+      { type:"slide", title:"Plural of feminine and neuter nouns",
+        content:`<p>Forming the nominative/accusative plural:</p>
+<table class="vocab-table"><tr><th>Noun type</th><th>Change</th><th>Example</th></tr><tr><td>Feminine (-a)</td><td>-a → -e</td><td>jabuka → jabuke</td></tr><tr><td>Neuter (-o)</td><td>-o → -a</td><td>pismo → pisma</td></tr><tr><td>Neuter (-e)</td><td>-e → -a</td><td>more → mora</td></tr><tr><td>Feminine (consonant)</td><td>add -i</td><td>noć → noći</td></tr></table>
+<p style="margin-top:0.75rem;">Verb 3rd plural: biti → <span class="hl">su</span>. Regular verbs: čitaju, voze, jedu, pjevaju.</p>` },
+      { type:"mc", question:"Plural of 'jabuka' (apple)?", options:["jabuke","jabuki","jabuka","jabukama"], correct:0, explanation:"jabuka ends in -a → plural: jabuke. Jedem jabuke = I'm eating apples." },
+      { type:"fill", question:"Pišem _____. (I'm writing letters.) [pismo]", answer:"pisma", explanation:"pismo is neuter (-o) → plural: pisma. Pišem pisma = I'm writing letters." },
+      { type:"mc", question:"'Ptice pjevaju.' means:", options:["Birds are singing","The bird sings","Birds are beautiful","The birds flew"], correct:0, explanation:"Ptice = N/A pl of ptica (bird, fem -a → -e). pjevaju = 3rd pl of pjevati. Birds are singing." },
+      { type:"fill", question:"Djeca su _____. (The children are here.)", answer:"ovdje", explanation:"djeca (children, collective) + su (3rd pl biti) + ovdje. Djeca su ovdje." },
+      { type:"mc", question:"'Mora su lijepa.' means:", options:["The seas are beautiful","The sea is beautiful","Beautiful seas","It's beautiful at sea"], correct:0, explanation:"Mora = plural of more (neut: -e→-a). lijepa = neut pl adj (-a). su = they are." },
+      { type:"mc", question:"What is the plural of 'noć' (night)?", options:["noći","noće","noćama","noća"], correct:0, explanation:"noć is feminine and ends in a consonant → add -i: noći. Noći su lijepe = Nights are beautiful." },
+      { type:"slide", title:"Adjectives in plural + special plurals",
+        content:`<p>Adjective plurals (nominative and accusative) match their noun:</p>
+<table class="vocab-table"><tr><th>Gender</th><th>Adj. N/A pl</th><th>Example</th></tr><tr><td>Feminine</td><td>-e</td><td>lijepe knjige</td></tr><tr><td>Neuter</td><td>-a</td><td>velika mora</td></tr></table>
+<p style="margin-top:0.75rem;">Special plurals: <span class="hl">oko → oči</span> (eyes, fem pl) · <span class="hl">uho → uši</span> (ears, fem pl)</p>
+<p style="margin-top:0.5rem;"><strong>Each other:</strong> <span class="hl">se</span> — Ana i Ivan se vole (Ana and Ivan love each other).</p>` },
+      { type:"mc", question:"'Imam lijepe knjige.' means:", options:["I have beautiful books","I have a beautiful book","Beautiful books are here","I need beautiful books"], correct:0, explanation:"knjige = pl of knjiga (fem -a→-e). lijepe = fem pl adj (-e). I have beautiful books." },
+      { type:"fill", question:"Ana i Goran se _____. (Ana and Goran love each other.)", answer:"vole", explanation:"vole = 3rd pl of voljeti. se = each other." },
+      { type:"mc", question:"'Oči su joj zelene.' means:", options:["Her eyes are green","Her eye is green","She has a green eye","Eyes are beautiful"], correct:0, explanation:"Oči = pl of oko (irregular, fem pl). joj = DL 'her'. zelene = fem pl adj. Her eyes are green." },
+      { type:"fill", question:"Sestre su _____. (The sisters are new.) [nova, pl]", answer:"nove", explanation:"sestre = fem pl. Adj fem pl: nova → nove. Sestre su nove." },
+      { type:"mc", question:"'Mora su hladna.' — 'hladna' is:", options:["Neuter plural (-a)","Feminine singular (-a)","Masculine plural","Accusative singular"], correct:0, explanation:"mora = neuter plural → adjective neuter plural: -a. Mora su hladna = The seas are cold." },
+      { type:"mc", question:"How do you say 'birds are beautiful'?", options:["Ptice su lijepe.","Ptica je lijepa.","Ptice je lijepe.","Lijepa su ptice."], correct:0, explanation:"Ptice = fem pl. lijepe = fem pl adj (-e). su = 3rd pl. Ptice su lijepe." },
+      { type:"fill", question:"Grade _____ cestu. (They're building a new road.) [nova, cesta fem acc]", answer:"novu", explanation:"nova (new) → novu (fem accusative). cesta → cestu. Grade novu cestu." },
+      { type:"mc", question:"'Pišemo pisma.' means:", options:["We're writing letters","We write a letter","I'm writing letters","They write letters"], correct:0, explanation:"pišemo = 1st pl of pisati. pisma = neuter plural of pismo." },
+      { type:"fill", question:"Uši su _____ hladne. (My ears are cold.) [my = DL]", answer:"mi", explanation:"mi = DL (my). Uši su mi hladne = My ears are cold." },
+      { type:"mc", question:"'To su ptice.' means:", options:["Those are birds","This bird is here","The birds are those","A bird is there"], correct:0, explanation:"To = demonstrative (stays singular in Croatian even when pointing to plural). su = they are. ptice = N pl. Those are birds." },
+      { type:"match", question:"Match each noun to its plural form", pairs:[["jabuka","jabuke"],["pismo","pisma"],["more","mora"],["noć","noći"]] },
+      { type:"match", question:"Match to the correct plural adjective form", pairs:[["lijepe knjige","fem pl (-e)"],["velika mora","neut pl (-a)"],["lijepe noći","fem pl (-e)"],["stara pisma","neut pl (-a)"]] },
+      { type:"mc", question:"What is the correct form of 'big seas'?", options:["velika mora","velike more","veliko mora","veliki mora"], correct:0, explanation:"mora = neuter pl. Adj neuter pl: -a → velika mora. Velika mora su lijepa." },
+    ]
+  },
+
+  {
+    id: 26, icon:"❓", title:"Yes or No?",
+    steps: [
+      { type:"slide", title:"Yes/no questions with 'li'",
+        content:`<p>Move the verb to the front and add <span class="hl">li</span> right after it:</p>
+<div class="example-box"><span class="cro">Ideš u školu.</span><span class="eng">You're going to school.</span><span class="cro">Ideš li u školu?</span><span class="eng">Are you going to school?</span></div>
+<p style="margin-top:0.75rem;">For <strong>biti</strong>, use the <span class="hl">extended forms</span> (they can go first):</p>
+<table class="vocab-table"><tr><td>jesam</td><td>jesi</td><td>jest(e)</td><td>jesmo</td><td>jeste</td><td>jesu</td></tr><tr><td>I am</td><td>you are</td><td>he/she is</td><td>we are</td><td>you (pl) are</td><td>they are</td></tr></table>
+<div class="example-box"><span class="cro">Jesi li gladna?</span><span class="eng">Are you hungry? (to a female)</span><span class="cro">Jesu li umorni?</span><span class="eng">Are they tired?</span></div>` },
+      { type:"mc", question:"How do you ask 'Are you going to the cinema?'", options:["Ideš li u kino?","Li ideš u kino?","Ideš u kino li?","U kino ideš li?"], correct:0, explanation:"Move verb to front + li right after it: Ideš li u kino?" },
+      { type:"fill", question:"_____ li gladna? (Are you hungry? — to a female)", answer:"Jesi", explanation:"biti 2nd sg female → jesi (extended form). Jesi li gladna?" },
+      { type:"mc", question:"'Jesi li bila u Splitu?' means:", options:["Were you (f) in Split?","Are you in Split?","You were in Split.","Is she in Split?"], correct:0, explanation:"Past tense yes/no: jesi (2nd sg extended biti) + li + bila (f past). Were you (f) in Split?" },
+      { type:"fill", question:"_____ li čitao tu knjigu? (Did you (m) read that book?)", answer:"Jesi", explanation:"Jesi li + čitao (m past). Jesi li čitao tu knjigu?" },
+      { type:"mc", question:"'Jesu li umorni?' means:", options:["Are they tired?","Were they tired?","Are you (pl) tired?","Is he tired?"], correct:0, explanation:"Jesu = 3rd pl extended biti. li = question. Are they tired?" },
+      { type:"mc", question:"Short answer to 'Jesi li umoran?'", options:["Jesam./Nisam.","Jest./Nije.","Jesu./Nisu.","Sam./Nisam."], correct:0, explanation:"jesi (2nd sg) → answer with jesam (1st sg): Jesam (yes) / Nisam (no)." },
+      { type:"slide", title:"Past tense questions + colloquial forms",
+        content:`<p>For past tense yes/no questions, move the <strong>auxiliary verb</strong> (je, sam, si…) to the front:</p>
+<div class="example-box"><span class="cro">Gledala si film.</span><span class="eng">You watched the film.</span><span class="cro">Jesi li gledala film?</span><span class="eng">Did you watch the film?</span></div>
+<p style="margin-top:0.75rem;">Short answers: <span class="hl">Da./Jesam.</span> or <span class="hl">Ne./Nisam.</span></p>
+<p style="margin-top:0.5rem;">Colloquial alternative — put <span class="hl">da li</span> or <span class="hl">jel</span> at the start:</p>
+<div class="example-box"><span class="cro">Da li ideš u školu?</span><span class="eng">Are you going to school? (colloq.)</span><span class="cro">Jel si gledala film?</span><span class="eng">Did you (f) watch the film? (colloq.)</span></div>` },
+      { type:"fill", question:"_____ li Ana plivala? (Was Ana swimming?)", answer:"Je", explanation:"Ana = 3rd person. je (extended: jest) → Je li. Je li Ana plivala?" },
+      { type:"mc", question:"'Jesi li čitala?' — the expected answer is:", options:["Jesam./Nisam.","Jest./Nije.","Jesmo./Nismo.","Sam./Nisam."], correct:0, explanation:"The question uses jesi (2nd sg). Short answer: Jesam (yes) / Nisam (no)." },
+      { type:"mc", question:"'Je li Ana kod kuće?' means:", options:["Is Ana at home?","Was Ana at home?","Ana is at home.","Where is Ana?"], correct:0, explanation:"Je li = is (3rd sg extended + li). Is Ana at home?" },
+      { type:"fill", question:"'Imaš li auto?' — 'Da, _____.' (Yes, I do.)", answer:"imam", explanation:"imam = 1st sg of imati. Da, imam = Yes, I do (have a car)." },
+      { type:"mc", question:"Which is the colloquial way to ask 'Did he watch the film'?", options:["Jel je gledao film?","Gleda li film?","Je li gledao film?","Jesi li gledao film?"], correct:0, explanation:"Colloquial: Jel + je + gledao film. = Jel je gledao film?" },
+      { type:"fill", question:"Plivate _____ ? (Are you (pl.) swimming?)", answer:"li", explanation:"plivate = 2nd pl. li makes it a yes/no question: Plivate li?" },
+      { type:"mc", question:"'Jesmo li u hotelu?' means:", options:["Are we in the hotel?","Were we at the hotel?","We are in the hotel.","We went to the hotel."], correct:0, explanation:"Jesmo = 1st pl extended biti. li = question. Are we in the hotel?" },
+      { type:"mc", question:"'Nije li lijepo?' means:", options:["Isn't it beautiful?","It's not beautiful.","Is it beautiful?","She isn't beautiful."], correct:0, explanation:"nije li = isn't it? This seeks confirmation. Isn't it beautiful?" },
+      { type:"fill", question:"Jesi li _____ u Dubrovniku? (Were you (f) in Dubrovnik?)", answer:"bila", explanation:"bila = fem past of biti. Jesi li bila u Dubrovniku?" },
+      { type:"match", question:"Match question to its natural short answer", pairs:[["Jesi li umoran?","Jesam./Nisam."],["Ide li Ana?","Ide./Ne ide."],["Jeste li gladni?","Jesmo./Nismo."],["Plivaju li?","Plivaju./Ne plivaju."]] },
+      { type:"mc", question:"'Da li radiš?' is the _____ version of 'Radiš li?'", options:["colloquial/alternative","strictly formal","incorrect in all contexts","poetic only"], correct:0, explanation:"Da li + verb is a very common colloquial alternative. The standard Croatian form is verb + li." },
+      { type:"fill", question:"Jesi li _____ taj film? (Did you (m) watch that film?)", answer:"gledao", explanation:"gledao = masc. past of gledati. Jesi li gledao taj film?" },
+      { type:"mc", question:"Short answer to 'Govorite li hrvatski?': 'Da, _____.'", options:["govorimo","govorite","govorim","govore"], correct:0, explanation:"The question is directed at 'vi' (you pl). The respondent says Govorimo (we speak, 1st pl)." },
+    ]
+  },
+
+  {
+    id: 27, icon:"🦴", title:"Body",
+    steps: [
+      { type:"slide", title:"Body parts vocabulary",
+        content:`<table class="vocab-table"><tr><td>glava</td><td>head</td><td>noga</td><td>leg/foot</td></tr><tr><td>vrat</td><td>neck</td><td>prst</td><td>finger/toe</td></tr><tr><td>ruka</td><td>hand/arm</td><td>koljeno</td><td>knee</td></tr><tr><td>trbuh</td><td>belly/stomach</td><td>leđa (n pl)</td><td>back</td></tr><tr><td>nos</td><td>nose</td><td>usta (n pl)</td><td>mouth</td></tr><tr><td>uho → uši</td><td>ear → ears</td><td>zub</td><td>tooth</td></tr><tr><td>oko → oči</td><td>eye → eyes</td><td>kosa</td><td>hair (head only)</td></tr><tr><td>jezik</td><td>tongue/language</td><td>lice</td><td>face</td></tr></table>
+<p style="margin-top:0.75rem;"><span class="hl">kosa</span> = head hair only · <span class="hl">dlaka</span> = body/facial/animal hair</p>` },
+      { type:"mc", question:"'jezik' means:", options:["tongue and language","tooth","arm","face"], correct:0, explanation:"jezik = tongue, and by extension language. Učim jezik = I'm learning a language." },
+      { type:"fill", question:"Ima lijepe _____. (She has beautiful eyes.) [plural of oko]", answer:"oči", explanation:"oko → oči (irregular fem pl). lijepe oči (fem pl)." },
+      { type:"mc", question:"'ruka' means:", options:["hand AND arm (no distinction)","hand only","arm only","finger"], correct:0, explanation:"Croatian doesn't distinguish hand from arm — both are ruka. Similarly noga = leg AND foot." },
+      { type:"fill", question:"Perem _____. (I'm brushing my teeth.) [zub, A-pl]", answer:"zube", explanation:"zub → zubi (N-pl) → zube (A-pl). Perem zube = I'm washing/brushing my teeth." },
+      { type:"mc", question:"What is the plural of 'uho' (ear)?", options:["uši (fem pl)","uha","uhovi","uhe"], correct:0, explanation:"uho → uši (irregular, becomes feminine plural). Uši su mi hladne = My ears are cold." },
+      { type:"slide", title:"Expressing pain and itching",
+        content:`<p><span class="hl">boljeti (boli)</span> = to hurt · <span class="hl">svrbiti (svrbi)</span> = to itch</p>
+<p style="margin-top:0.75rem;">The <strong>body part is the subject (N)</strong>. The <strong>person is the object (A)</strong>:</p>
+<div class="example-box"><span class="cro">Boli me glava.</span><span class="eng">My head hurts. (head hurts me)</span><span class="cro">Bole me leđa.</span><span class="eng">My back hurts. (leđa = plural → bole)</span><span class="cro">Svrbi me noga.</span><span class="eng">My leg is itching.</span><span class="cro">Boli te zub?</span><span class="eng">Does your tooth hurt?</span></div>
+<p style="margin-top:0.75rem;">Asking: <span class="hl">Što te boli?</span> What hurts you?</p>` },
+      { type:"mc", question:"'Boli me glava.' means:", options:["My head hurts","My head is beautiful","I hurt my head","The head aches"], correct:0, explanation:"boli = hurts (3rd sg). me = acc (me). glava = subject (head). My head hurts." },
+      { type:"fill", question:"_____ me noga. (My leg is itching.)", answer:"Svrbi", explanation:"svrbi = it itches (3rd sg). me = acc. noga = subject." },
+      { type:"mc", question:"'Bole me leđa.' — why 'bole' not 'boli'?", options:["leđa is plural → bole (3rd pl)","leđa is feminine","it's irregular","bole is for back pain only"], correct:0, explanation:"leđa (back) exists only in plural → verb must be 3rd plural: bole." },
+      { type:"fill", question:"Što te _____? (What hurts you?)", answer:"boli", explanation:"Što te boli? = What hurts you? te = acc (you). boli = 3rd sg of boljeti." },
+      { type:"mc", question:"'Ana pere Goranu kosu.' means:", options:["Ana is washing Goran's hair","Ana's hair is clean","Goran washes Ana's hair","They wash their hair"], correct:0, explanation:"Goranu = DL (possession). kosu = kosa in accusative. Ana is washing Goran's hair." },
+      { type:"fill", question:"Kosa _____ je prljava. (Your hair is dirty.) [your = DL, informal sg]", answer:"ti", explanation:"ti = DL (your). Kosa ti je prljava = Your hair is dirty." },
+      { type:"mc", question:"How do you say 'My eyes are itching'?", options:["Svrbe me oči.","Svrbi me oči.","Bole me oči.","Svrbe mi oči."], correct:0, explanation:"oči = plural → svrbe (3rd pl of svrbiti). me = acc. Svrbe me oči." },
+      { type:"fill", question:"Boli _____ trbuh. (My stomach hurts.)", answer:"me", explanation:"boli = 3rd sg. me = acc (me). trbuh = subject. Boli me trbuh." },
+      { type:"mc", question:"'Gorana bole zubi.' means:", options:["Goran's teeth hurt","Goran brushes his teeth","Goran has white teeth","Goran's tooth hurts"], correct:0, explanation:"Gorana = accusative (the one who hurts). zubi = N pl. bole = 3rd pl. Goran's teeth hurt." },
+      { type:"mc", question:"'kosa' vs 'dlaka' — the difference is:", options:["kosa = head hair only; dlaka = body/facial/animal hair","kosa = body hair; dlaka = head hair","They mean the same thing","kosa is formal"], correct:0, explanation:"kosa is strictly hair on the scalp. dlaka covers everything else: body hair, beard, animal fur." },
+      { type:"fill", question:"Goran _____ zube. (Goran is brushing his teeth.) [prati → pere]", answer:"pere", explanation:"prati → pres-3: pere. zube = acc pl. Goran pere zube = Goran brushes his teeth." },
+      { type:"match", question:"Match body part to its English meaning", pairs:[["glava","head"],["koljeno","knee"],["vrat","neck"],["leđa","back (pl)"]] },
+      { type:"match", question:"Match to its special plural", pairs:[["oko","oči (f pl)"],["uho","uši (f pl)"],["usta","usta (n pl, only pl)"],["leđa","leđa (n pl, only pl)"]] },
+      { type:"fill", question:"Boli _____ koljeno. (Your knee hurts.) [you = acc, informal sg]", answer:"te", explanation:"te = acc of ti (you). boli = 3rd sg. koljeno = subject. Boli te koljeno." },
+    ]
+  },
+
+  {
+    id: 28, icon:"🔍", title:"Asking Who and What",
+    steps: [
+      { type:"slide", title:"Question words: tko and što",
+        content:`<p>The Croatian equivalents of <em>who</em> and <em>what</em> change form by case:</p>
+<table class="vocab-table"><tr><th>Case</th><th>who (tko)</th><th>what (što)</th></tr><tr><td>N (subject)</td><td><span class="hl">tko</span></td><td><span class="hl">što</span></td></tr><tr><td>A/G (object/of)</td><td><span class="hl">koga</span></td><td><span class="hl">što / čega</span></td></tr><tr><td>DL (to whom)</td><td><span class="hl">kome</span></td><td><span class="hl">čemu</span></td></tr></table>
+<p style="margin-top:0.75rem;">The question word always goes <strong>first</strong>. <em>tko</em> uses masculine singular verb; <em>što</em> uses neuter singular.</p>
+<div class="example-box"><span class="cro">Koga Goran čeka?</span><span class="eng">Who is Goran waiting for? (A)</span><span class="cro">Kome je Ana pisala?</span><span class="eng">Who was Ana writing to? (DL)</span></div>` },
+      { type:"mc", question:"'Koga Goran čeka?' means:", options:["Who is Goran waiting for?","What is Goran waiting for?","Who is waiting for Goran?","Goran, who are you waiting for?"], correct:0, explanation:"Koga = who (accusative, object of čekati). Who is Goran waiting for?" },
+      { type:"fill", question:"_____ Ana radi? (What is Ana doing?)", answer:"Što", explanation:"Što = what (N/A). Što Ana radi? = What is Ana doing?" },
+      { type:"mc", question:"'Tko je bio ovdje?' means:", options:["Who was here?","What was here?","Who is here?","Whoever was here..."], correct:0, explanation:"Tko = who (nominative subject). bio = past of biti (masc, tko always takes masc sg). Who was here?" },
+      { type:"fill", question:"_____ se bojiš? (What are you afraid of?) [G of što]", answer:"Čega", explanation:"bojati se + G. čega = G of što (what). Čega se bojiš? = What are you afraid of?" },
+      { type:"mc", question:"'Kome je Ana pisala?' means:", options:["Who was Ana writing to?","What was Ana writing?","Who wrote to Ana?","Who did Ana know?"], correct:0, explanation:"Kome = DL of tko (to whom). Who was Ana writing to?" },
+      { type:"fill", question:"_____ te boli? (What hurts you?)", answer:"Što", explanation:"Što te boli? Body parts are subjects — što asks which one. What hurts you?" },
+      { type:"slide", title:"Using question words in practice",
+        content:`<div class="example-box"><span class="cro">Koga čeka?</span><span class="eng">Who is he/she waiting for? (A)</span><span class="cro">Što piše?</span><span class="eng">What is he/she writing? (A)</span><span class="cro">Kome šalje?</span><span class="eng">Who is he/she sending it to? (DL)</span><span class="cro">Čega se boji?</span><span class="eng">What is he/she afraid of? (G)</span><span class="cro">Što je Ivan?</span><span class="eng">What is Ivan? (profession/identity)</span></div>
+<p style="margin-top:0.75rem;"><span class="hl">Što se događa?</span> = What is going on? (događati se = to happen)</p>` },
+      { type:"mc", question:"'Što je Ivan?' — a natural answer would be:", options:["Liječnik. (A doctor.)","Gorana. (Goran's.)","Ivanu. (To Ivan.)","Bio je. (He was.)"], correct:0, explanation:"Što je X? = What is X (professionally/identity)? Answer: job/role in nominative." },
+      { type:"fill", question:"_____ šalješ poruku? (Who are you sending a message to?)", answer:"Kome", explanation:"šaljete + DL. Kome = DL of tko. Kome šalješ poruku?" },
+      { type:"mc", question:"'Koga se bojiš?' — 'koga' indicates:", options:["You're afraid of a person (G of tko)","You're asking about a thing","kome would be more correct","This question is wrong"], correct:0, explanation:"bojati se + G. Koga = G of tko (for people). Koga se bojiš? = Who are you afraid of?" },
+      { type:"fill", question:"_____ je ovo? (What is this?)", answer:"Što", explanation:"Što = what (neuter, nominative). Što je ovo? = What is this?" },
+      { type:"mc", question:"'Čemu se raduješ?' means:", options:["What are you happy about?","Who are you happy about?","What are you celebrating?","Why are you happy?"], correct:0, explanation:"Čemu = DL of što. radovati se + DL = to be happy about. What are you happy about?" },
+      { type:"fill", question:"_____ si? (Who are you?)", answer:"Tko", explanation:"Tko = who (nominative). Tko si? = Who are you?" },
+      { type:"mc", question:"'Što se događa?' means:", options:["What is going on?","Who is happening here?","What happened yesterday?","Whose event is this?"], correct:0, explanation:"događati se = to happen/go on. Što = what (subject). What is going on?" },
+      { type:"mc", question:"'Tko pjeva?' — the verb 'pjeva' signals:", options:["Masculine singular 3rd person (tko always takes masc sg)","Feminine singular","Plural answer expected","An ongoing action only"], correct:0, explanation:"tko (who) always takes masc. singular verb, even if the answer is female or plural." },
+      { type:"fill", question:"Ivan čeka Anu. _____ Ivan čeka? (Who is Ivan waiting for?)", answer:"Koga", explanation:"Koga = who (accusative, object of čekati). Koga Ivan čeka?" },
+      { type:"match", question:"Match question word to the case it represents", pairs:[["tko","nominative (subject)"],["koga","accusative/genitive"],["kome","dative/locative"],["čega","genitive of što"]] },
+      { type:"match", question:"Match each question to its natural answer", pairs:[["Koga čekate?","Anu."],["Kome pišete?","Goranu."],["Što radite?","Čitamo."],["Tko pjeva?","Ana."]] },
+      { type:"mc", question:"'Što to radiš?' vs 'Što radiš?' — adding 'to' makes it:", options:["More specific to right now (I can see you doing it)","Past tense","More formal","A complaint"], correct:0, explanation:"Adding 'to' makes the question specific to the present, visible moment. Very common in speech." },
+      { type:"fill", question:"Ana je pisala pismo. _____ je Ana pisala? (What was Ana writing?)", answer:"Što", explanation:"Što = what (A, neuter). Što je Ana pisala? = What was Ana writing?" },
+    ]
+  },
+
+  {
+    id: 29, icon:"🔢", title:"Plural of Masculine Nouns",
+    steps: [
+      { type:"slide", title:"Masculine noun plurals",
+        content:`<p>Most masculine nouns: add <span class="hl">-i</span> (nominative plural) and <span class="hl">-e</span> (accusative plural):</p>
+<table class="vocab-table"><tr><th>Singular</th><th>N-pl</th><th>A-pl</th></tr><tr><td>krevet (bed)</td><td>kreveti</td><td>krevete</td></tr><tr><td>prozor (window)</td><td>prozori</td><td>prozore</td></tr><tr><td>tanjur (plate)</td><td>tanjuri</td><td>tanjure</td></tr></table>
+<p style="margin-top:0.75rem;"><strong>One-syllable nouns</strong> get <span class="hl">-ovi</span> (N-pl) / <span class="hl">-ove</span> (A-pl):</p>
+<table class="vocab-table"><tr><td>grad → gradovi</td><td>brod → brodovi</td><td>sin → sinovi</td></tr></table>` },
+      { type:"mc", question:"Plural of 'krevet' (bed) in nominative?", options:["kreveti","krevete","kreveta","krevetovi"], correct:0, explanation:"krevet → kreveti (N-pl, add -i). A-pl: krevete." },
+      { type:"fill", question:"Gledam _____. (I'm watching ships.) [brod, A-pl]", answer:"brodove", explanation:"brod (one syllable) → N-pl brodovi / A-pl brodove. Gledam brodove." },
+      { type:"mc", question:"What is the N-plural of 'grad' (city)?", options:["gradovi","gradi","gradove","grade"], correct:0, explanation:"grad = one syllable → -ovi ending: gradovi. A-pl: gradove. Gradovi su lijepi." },
+      { type:"fill", question:"Sinovi _____ lijepi. (The sons are handsome.)", answer:"su", explanation:"su = 3rd pl of biti. lijepi = m pl adj. Sinovi su lijepi." },
+      { type:"mc", question:"'Gledam prozore.' means:", options:["I'm looking at the windows","I have windows","The windows are here","Looking through a window"], correct:0, explanation:"prozore = A-pl of prozor. Gledam prozore = I'm looking at the windows." },
+      { type:"fill", question:"U sobi ima pet _____. (There are five beds in the room.) [krevet, G-pl]", answer:"kreveta", explanation:"5+ + G-pl. krevet → kreveti → G-pl: kreveta. pet kreveta = five beds." },
+      { type:"slide", title:"Special plural endings + čovjek/ljudi",
+        content:`<p>Nouns ending in a <strong>Croatian special letter</strong> (š, ž, č, ć, đ) get <span class="hl">-evi</span> instead of -ovi:</p>
+<table class="vocab-table"><tr><td>broj → <strong>brojevi</strong></td><td>nož → <strong>noževi</strong></td><td>ključ → <strong>ključevi</strong></td><td>miš → <strong>miševi</strong></td></tr></table>
+<p style="margin-top:0.75rem;">Completely irregular: <span class="hl">čovjek</span> (man/person) → <span class="hl">ljudi</span> (people)</p>
+<p style="margin-top:0.5rem;">Adjectives: N-pl <span class="hl">-i</span> (veliki gradovi), A-pl <span class="hl">-e</span> (velike gradove)</p>` },
+      { type:"mc", question:"Plural of 'ključ' (key)?", options:["ključevi","ključovi","ključi","ključe"], correct:0, explanation:"ključ ends in č (Croatian special letter) → -evi: ključevi. A-pl: ključeve." },
+      { type:"fill", question:"Ima puno _____. (There are a lot of people.)", answer:"ljudi", explanation:"čovjek → irregular: ljudi. puno + G-pl: puno ljudi." },
+      { type:"mc", question:"'Veliki gradovi su lijepi.' — 'veliki' is:", options:["Masculine plural nominative (-i)","Masculine singular","Accusative plural (-e)","Feminine plural (-e)"], correct:0, explanation:"gradovi = m pl N. Adj m pl N: -i → veliki." },
+      { type:"fill", question:"Gledam _____ gradove. (I'm looking at big cities.)", answer:"velike", explanation:"gradove = A-pl. Adj A-pl: velik → velike. Gledam velike gradove." },
+      { type:"mc", question:"'Noževi su na stolu.' means:", options:["The knives are on the table","A knife is on the table","Knives are under the table","The knife is sharp"], correct:0, explanation:"Noževi = N-pl of nož (→ -evi). na stolu = locative. The knives are on the table." },
+      { type:"fill", question:"Imam pet _____. (I have five keys.) [ključ, G-pl]", answer:"ključeva", explanation:"ključ → N-pl ključevi → G-pl ključeva. pet ključeva = five keys." },
+      { type:"mc", question:"'Miševi su mali.' means:", options:["Mice are small","The mouse is small","Mice are big","These mice are here"], correct:0, explanation:"Miševi = N-pl of miš (→ -evi). mali = m pl adj. Mice are small." },
+      { type:"mc", question:"What is the accusative plural of 'brod' (ship)?", options:["brodove","brodovi","brodova","brode"], correct:0, explanation:"brod = one syllable. N-pl: brodovi. A-pl: brodove. Gledam brodove." },
+      { type:"fill", question:"Vidim stare _____. (I see old windows.) [prozor, A-pl]", answer:"prozore", explanation:"prozore = A-pl of prozor. stare = adj A-pl. Vidim stare prozore." },
+      { type:"mc", question:"Masculine adjective plurals: nominative uses _____, accusative uses _____.", options:["-i / -e","-e / -i","-a / -e","-i / -a"], correct:0, explanation:"Masc pl adj: N-pl -i (veliki), A-pl -e (velike). Mirrors the noun pattern." },
+      { type:"fill", question:"Gledam _____. (I'm watching big ships.) [velik, brod, A-pl]", answer:"velike brodove", explanation:"brodove = A-pl brod. Adj A-pl: velik → velike. Gledam velike brodove." },
+      { type:"match", question:"Match singular to N-plural", pairs:[["krevet","kreveti"],["grad","gradovi"],["broj","brojevi"],["čovjek","ljudi"]] },
+      { type:"match", question:"Match to the correct plural in context", pairs:[["Gledam (brodove/brodovi)","brodove (A-pl)"],["(Gradovi/Gradove) su lijepi.","Gradovi (N-pl)"],["Imam (ključeve/ključevi).","ključeve (A-pl)"],["(Sinovi/Sinove) pjevaju.","Sinovi (N-pl)"]] },
+      { type:"mc", question:"'Psi su gladni.' means:", options:["The dogs are hungry","The dog is hungry","Dogs are eating","The dogs were hungry"], correct:0, explanation:"Psi = N-pl of pas (dog, irregular short plural). gladni = m pl adj. The dogs are hungry." },
+    ]
+  },
+
+  {
+    id: 30, icon:"🍺", title:"Three Beers: Numbers with Nouns",
+    steps: [
+      { type:"slide", title:"Numbers 2–4 take genitive singular",
+        content:`<p>The number you use changes the noun's case:</p>
+<table class="vocab-table"><tr><td><span class="hl">1</span> + nominative</td><td>jedan brat, jedna sestra, jedno dijete</td></tr><tr><td><span class="hl">2, 3, 4</span> + genitive singular</td><td>dva brata, tri sestre, četiri kave</td></tr><tr><td><span class="hl">5+</span> + genitive plural</td><td>pet braće, šest sestara, deset piva</td></tr></table>
+<p style="margin-top:0.75rem;"><span class="hl">dva/dvije</span>: dva (masc/neut) · dvije (fem):<br>dva brata · dvije sestre · dva piva</p>` },
+      { type:"mc", question:"'Imam dva brata.' means:", options:["I have two brothers","I have two sisters","I have a brother","I have two friends (m)"], correct:0, explanation:"dva = 2 (masc). brata = G sg of brat (animate masc → +a). I have two brothers." },
+      { type:"fill", question:"Imam _____ sestre. (I have three sisters.)", answer:"tri", explanation:"tri = three. + G sg: sestra → sestre. Imam tri sestre." },
+      { type:"mc", question:"'Tri piva, molim.' means:", options:["Three beers, please","Three friends, please","Three glasses, please","Take three, please"], correct:0, explanation:"Tri = 3. piva = G sg of pivo (neut: -o → -a). molim = please. Three beers, please!" },
+      { type:"fill", question:"Ima _____ kave. (There are four coffees.)", answer:"četiri", explanation:"četiri = 4. kava → kave (G sg fem: -a → -e). Ima četiri kave." },
+      { type:"mc", question:"'dva' vs 'dvije' — when do you use 'dvije'?", options:["With feminine nouns","With masculine nouns","With neuter nouns","Always for 2"], correct:0, explanation:"dva = masc/neut. dvije = fem. Dva brata (m), dvije sestre (f), dva piva (neut)." },
+      { type:"mc", question:"'dvije nove knjige' — 'nove' is in which form?", options:["G sg fem adjective","N pl fem","A pl fem","G pl fem"], correct:0, explanation:"knjige = G sg of knjiga (fem). nove = adj G sg fem (-e). dvije nove knjige = two new books." },
+      { type:"slide", title:"5 and above: genitive plural",
+        content:`<p>For <strong>5+</strong>, use the <span class="hl">genitive plural</span>. Key patterns:</p>
+<table class="vocab-table"><tr><th>Type</th><th>G-plural</th><th>Example</th></tr><tr><td>Fem (-a)</td><td>drop -a (or same form)</td><td>jabuka → jabuka (5 jabuka!)</td></tr><tr><td>Neuter (-o/-e)</td><td>change to -a</td><td>pivo → piva, more → mora</td></tr><tr><td>Masc (short pl -i)</td><td>add -a to N-pl</td><td>prozori → prozora</td></tr><tr><td>Masc (-ovi)</td><td>add -a to N-pl</td><td>gradovi → gradova</td></tr></table>
+<div class="example-box"><span class="cro">Pet jabuka.</span><span class="eng">Five apples.</span><span class="cro">Šest gradova.</span><span class="eng">Six cities.</span><span class="cro">Deset knjiga.</span><span class="eng">Ten books.</span></div>` },
+      { type:"mc", question:"'Pet jabuka' — what form is 'jabuka' here?", options:["Genitive plural (same as nominative singular!)","Genitive singular","Nominative plural","Accusative plural"], correct:0, explanation:"jabuka → G-pl = jabuka (the -a is the G-pl marker; fem -a nouns look the same!). Pet jabuka = five apples." },
+      { type:"fill", question:"Šest _____ . (Six windows.) [prozor, G-pl]", answer:"prozora", explanation:"prozor → prozori (N-pl) → prozora (G-pl: add -a to stem). Šest prozora." },
+      { type:"mc", question:"'Deset brodova.' means:", options:["Ten ships","Ten big ships","Ship number ten","A fleet"], correct:0, explanation:"Deset = 10. brodova = G-pl of brod (brodovi → brodova). Ten ships." },
+      { type:"fill", question:"Imam pet _____. (I have five books.) [knjiga, G-pl]", answer:"knjiga", explanation:"knjiga → G-pl: knjiga (fem -a nouns: G-pl = same as N-sg form!). pet knjiga." },
+      { type:"mc", question:"'Tri sestre' vs 'Pet sestara' — what changed?", options:["3 → G sg (sestre); 5 → G pl (sestara)","Both are G sg","3 → N pl; 5 → G pl","They are the same form"], correct:0, explanation:"2-4 use G sg: sestre. 5+ use G pl: sestara. The two forms are different!" },
+      { type:"fill", question:"Ima puno _____. (There are many ships.) [brod, G-pl]", answer:"brodova", explanation:"brod → brodovi → brodova (G-pl). puno + G-pl. Ima puno brodova." },
+      { type:"mc", question:"How do you say 'two new books' (knjiga = fem)?", options:["dvije nove knjige","dva nove knjige","dvije novi knjigi","dva novu knjigu"], correct:0, explanation:"knjiga = fem → dvije. knjige = G sg. nove = adj G sg fem. Dvije nove knjige." },
+      { type:"fill", question:"Imam _____ auto. (I have one car.)", answer:"jedan", explanation:"jedan = one (masc/neut). auto is masculine → jedan auto." },
+      { type:"mc", question:"'Dvije kave, molim.' — the waiter hears:", options:["Two coffees, please","Two beers, please","Two teas, please","Two glasses, please"], correct:0, explanation:"Dvije = two (fem). kave = G sg of kava (fem: -a → -e). Two coffees, please." },
+      { type:"mc", question:"What form of the noun follows the number 4?", options:["Genitive singular","Nominative plural","Accusative singular","Genitive plural"], correct:0, explanation:"2, 3, 4 all take genitive singular. Imam četiri brata/sestre/piva." },
+      { type:"fill", question:"Ima tri _____ i dvije _____. (Three brothers and two sisters.)", answer:"brata, sestre", explanation:"tri + G sg: brat → brata. dvije + G sg: sestra → sestre." },
+      { type:"match", question:"Match number to the correct noun form", pairs:[["jedan brat","nominative sg"],["dva brata","genitive sg"],["pet braće","genitive pl (irregular)"],["četiri sestre","genitive sg"]] },
+      { type:"match", question:"Match to the correct form with the number", pairs:[["dva _____ (pivo)","piva (G sg)"],["pet _____ (jabuka)","jabuka (G pl)"],["tri _____ (knjiga)","knjige (G sg)"],["šest _____ (brod)","brodova (G pl)"]] },
+      { type:"mc", question:"'Imam četiri ključa.' means:", options:["I have four keys","I have four knives","I have four clocks","I have four chairs"], correct:0, explanation:"ključ → G sg: ključa (masc consonant + a). Imam četiri ključa = I have four keys." },
+    ]
+  },
 ];
 
 // ── Storage ──
@@ -1299,7 +1644,7 @@ function renderMap() {
   const grid = document.getElementById('chapter-grid');
   grid.innerHTML = '';
   CHAPTERS.forEach((ch, i) => {
-    const prev = i < 6 || getChapterProgress(CHAPTERS[i-1].id).stars > 0;
+    const prev = i < 6 || getChapterProgress(CHAPTERS[i-1].id).checkpointDone;
     const locked = !prev;
     const units = getUnits(ch);
     const doneUnits = units.filter((u, ui) => getUnitProgress(ch.id, ui).stars > 0).length;
@@ -1760,15 +2105,21 @@ function showComplete() {
     nextUnitBtn.style.display = 'none';
   }
 
-  if (!state.isCheckpoint && isLastUnit && chIdx < CHAPTERS.length - 1) {
+  const cpDone = (state.chapterProgress[ch.id] || {}).checkpointDone;
+  if (state.isCheckpoint && chIdx < CHAPTERS.length - 1) {
+    nextChBtn.style.display = 'inline-block';
+    nextChBtn.textContent = 'Next chapter: ' + CHAPTERS[chIdx + 1].title + ' →';
+  } else if (!state.isCheckpoint && isLastUnit && cpDone && chIdx < CHAPTERS.length - 1) {
     nextChBtn.style.display = 'inline-block';
     nextChBtn.textContent = 'Next chapter →';
   } else {
     nextChBtn.style.display = 'none';
   }
 
-  document.getElementById('complete-checkpoint-wrap').innerHTML = !state.isCheckpoint
-    ? `<button class="ghost-btn" onclick="startCheckpoint(${ch.id})" style="width:100%;padding:8px;">🏁 Start Chapter Checkpoint</button>`
+  document.getElementById('complete-checkpoint-wrap').innerHTML = !state.isCheckpoint && isLastUnit
+    ? `<button class="check-btn" style="background:#185FA5;width:100%;margin-top:4px;" onclick="startCheckpoint(${ch.id})">🏁 Continue to Checkpoint →</button>`
+    : !state.isCheckpoint
+    ? `<button class="ghost-btn" onclick="startCheckpoint(${ch.id})" style="width:100%;padding:8px;">🏁 Chapter Checkpoint</button>`
     : '';
 
   showScreen('screen-complete');
