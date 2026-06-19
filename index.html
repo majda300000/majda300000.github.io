@@ -1644,8 +1644,7 @@ function renderMap() {
   const grid = document.getElementById('chapter-grid');
   grid.innerHTML = '';
   CHAPTERS.forEach((ch, i) => {
-    const prev = i < 6 || getChapterProgress(CHAPTERS[i-1].id).checkpointDone;
-    const locked = !prev;
+    const locked = false;
     const units = getUnits(ch);
     const doneUnits = units.filter((u, ui) => getUnitProgress(ch.id, ui).stars > 0).length;
     const allSteps = getAllSteps(ch);
@@ -2210,7 +2209,24 @@ function closeSummaryModal() {
 }
 
 // ── Init ──
+function migrateProgress() {
+  // If a chapter has stars in the old format but no checkpointDone, treat it as done
+  // so users who completed chapters before checkpoints were required don't lose access.
+  let changed = false;
+  Object.keys(state.chapterProgress).forEach(chId => {
+    const cp = state.chapterProgress[chId];
+    if (!cp) return;
+    const hasStars = cp.stars > 0 || (cp.units && cp.units.some(u => u && u.stars > 0));
+    if (hasStars && !cp.checkpointDone) {
+      state.chapterProgress[chId] = Object.assign({}, cp, { checkpointDone: true });
+      changed = true;
+    }
+  });
+  if (changed) storage.set('chapterProgress', state.chapterProgress);
+}
+
 function initApp() {
+  migrateProgress();
   if (state.userName) { checkAndUpdateStreak(); goHome(); }
   else { showScreen('screen-welcome'); }
 }
